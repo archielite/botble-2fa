@@ -1,0 +1,10 @@
+{
+    "id": "botble/2fa",
+    "name": "Two-factor Authentication",
+    "namespace": "Botble\\TwoFa\\",
+    "provider": "Botble\\TwoFa\\Providers\\TwoFactorAuthenticationServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "0.0.1",
+    "description": "Two-factor Authentication for Botble CMS"
+}

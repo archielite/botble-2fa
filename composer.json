@@ -1,0 +1,7 @@
+{
+    "name": "botble/2fa",
+    "require": {
+        "pragmarx/google2fa": "^8.0",
+        "bacon/bacon-qr-code": "^2.0"
+    }
+}
