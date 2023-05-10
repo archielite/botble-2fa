@@ -32,7 +32,7 @@ class HookServiceProvider extends ServiceProvider
             }
 
             return array_merge([
-                RedirectIfTwoFactorAuthenticatable::class
+                RedirectIfTwoFactorAuthenticatable::class,
             ], $pipeline);
         }, 999);
     }
