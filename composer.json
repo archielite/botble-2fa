@@ -1,7 +1,29 @@
 {
-    "name": "botble/2fa",
+    "name": "archielite/botble-2fa",
+    "description": "Add Two Factor Authentication to Botble CMS",
+    "keywords": [
+        "botble cms",
+        "2fa"
+    ],
+    "homepage": "https://marketplace.botble.com/products/archielite/botble-2fa",
+    "type": "botble-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Archi Elite",
+            "homepage": "https://archielite.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Botble\\TwoFactorAuthentication\\": "src"
+        }
+    },
     "require": {
+        "botble/platform": "*@dev",
         "pragmarx/google2fa": "^8.0",
         "bacon/bacon-qr-code": "^2.0"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
