@@ -10,5 +10,5 @@ mix
     .js(source + '/resources/js/2fa.js', dist + '/js')
 
 if (mix.inProduction()) {
-    mix.copy(dist + '/js/analytics.js', source + '/public/js')
+    mix.copyDirectory(dist + '/js', source + '/public/js')
 }

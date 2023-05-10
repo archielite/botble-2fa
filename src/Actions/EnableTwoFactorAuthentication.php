@@ -1,21 +1,20 @@
 <?php
 
-namespace Botble\TwoFa\Actions;
+namespace Botble\TwoFactorAuthentication\Actions;
 
 use Botble\ACL\Models\User;
-use Botble\TwoFa\Contracts\TwoFactorAuthenticationProvider;
-use Botble\TwoFa\Models\TwoFactorAuthentication;
-use Botble\TwoFa\RecoveryCode;
+use Botble\TwoFactorAuthentication\Models\TwoFactorAuthentication;
+use Botble\TwoFactorAuthentication\RecoveryCode;
 use Illuminate\Support\Collection;
 
 class EnableTwoFactorAuthentication
 {
-    public function __invoke(User $user): void
+    public function __invoke(User $user, string $secret): void
     {
         TwoFactorAuthentication::query()->updateOrCreate([
             'user_id' => $user->id,
         ], [
-            'secret' => encrypt(app(TwoFactorAuthenticationProvider::class)->generateSecretKey()),
+            'secret' => encrypt($secret),
             'recovery_codes' => encrypt(json_encode(Collection::times(8, function () {
                 return RecoveryCode::generate();
             })->all())),

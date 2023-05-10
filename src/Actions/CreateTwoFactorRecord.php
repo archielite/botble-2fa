@@ -1,11 +1,11 @@
 <?php
 
-namespace Botble\TwoFa\Actions;
+namespace Botble\TwoFactorAuthentication\Actions;
 
 use Botble\ACL\Models\User;
-use Botble\TwoFa\Contracts\TwoFactorAuthenticationProvider;
-use Botble\TwoFa\Models\TwoFactorAuthentication;
-use Botble\TwoFa\RecoveryCode;
+use Botble\TwoFactorAuthentication\Contracts\TwoFactorAuthenticationProvider;
+use Botble\TwoFactorAuthentication\Models\TwoFactorAuthentication;
+use Botble\TwoFactorAuthentication\RecoveryCode;
 use Illuminate\Support\Collection;
 
 class CreateTwoFactorRecord

@@ -1,6 +1,6 @@
 <?php
 
-namespace Botble\TwoFa;
+namespace Botble\TwoFactorAuthentication;
 
 use Illuminate\Support\Str;
 

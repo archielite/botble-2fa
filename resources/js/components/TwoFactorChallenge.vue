@@ -13,14 +13,14 @@ export default {
             this.loading = true
 
             try {
-                const data = this.recovery ? { recovery_code: this.recovery_code } : { code: this.code }
-                const response = await axios.post('/admin/two-factor/challenge', data)
+                const body = this.recovery ? { recovery_code: this.recovery_code } : { code: this.code }
+                const response = await axios.post('/admin/two-factor/challenge', body)
 
-                const { error, message, next_url } = response.data
+                const { error, message, data } = response.data
 
-                if (next_url) {
-                    window.location.href = next_url
-                } else if (error) {
+                if (!error) {
+                    window.location.href = data.next_url
+                } else {
                     Botble.showError(message)
                 }
             } catch (data) {
@@ -42,27 +42,27 @@ export default {
 <template>
     <div>
         <p v-if="!recovery">
-            {{ __('Please confirm access to your account by entering the authentication code provided by your authenticator application.') }}
+            {{ __('trans.challenge_code_tutorial') }}
         </p>
 
         <p v-if="recovery">
-            {{ __('Please confirm access to your account by entering one of your emergency recovery codes.') }}
+            {{ __('trans.challenge_recovery_code_tutorial') }}
         </p>
 
         <form @submit.prevent="submit" class="login-form">
             <div class="form-group" v-if="!recovery">
-                <label for="code" class="form-label">{{ __('Code') }}</label>
+                <label for="code" class="form-label">{{ __('trans.code') }}</label>
                 <input type="text" id="code" class="form-control" inputmode="numeric" v-model="code" autofocus autocomplete="one-time-code">
             </div>
 
             <div class="form-group" v-else>
-                <label for="recovery_code" class="form-label">{{ __('Recovery Code') }}</label>
+                <label for="recovery_code" class="form-label">{{ __('trans.recovery_code') }}</label>
                 <input type="text" id="recovery_code" class="form-control" v-model="recovery_code" autofocus autocomplete="one-time-code">
             </div>
 
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-block login-button">
-                    <span class="signin">{{ __('Log in') }}</span>
+                    <span class="signin">{{ __('trans.login') }}</span>
                 </button>
 
                 <button
@@ -70,7 +70,7 @@ export default {
                     class="btn btn-block login-button bg-secondary"
                     @click="toggleRecovery"
                 >
-                    <span class="signin" v-text="recovery ? __('Use a recovery code') : __('Use an authentication code')" />
+                    <span class="signin" v-text="recovery ? __('trans.use_recovery_code') : __('trans.use_code')" />
                 </button>
             </div>
         </form>

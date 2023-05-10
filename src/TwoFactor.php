@@ -1,11 +1,11 @@
 <?php
 
-namespace Botble\TwoFa;
+namespace Botble\TwoFactorAuthentication;
 
-use Botble\TwoFa\Models\TwoFactorAuthentication;
+use Botble\TwoFactorAuthentication\Models\TwoFactorAuthentication;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-class TwoFa
+class TwoFactor
 {
     public static function isSettingEnabled(): bool
     {

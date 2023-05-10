@@ -1,11 +1,11 @@
 <?php
 
-namespace Botble\TwoFa\Http\Controllers;
+namespace Botble\TwoFactorAuthentication\Http\Controllers;
 
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use Botble\TwoFa\Actions\ConfirmTwoFactorAuthentication;
-use Botble\TwoFa\Http\Requests\ConfirmTwoFactorCodeRequest;
+use Botble\TwoFactorAuthentication\Actions\ConfirmTwoFactorAuthentication;
+use Botble\TwoFactorAuthentication\Http\Requests\ConfirmTwoFactorCodeRequest;
 
 class ConfirmedTwoFactorAuthenticationController extends BaseController
 {
@@ -14,8 +14,8 @@ class ConfirmedTwoFactorAuthenticationController extends BaseController
         ConfirmTwoFactorAuthentication $confirm,
         BaseHttpResponse $response
     ): BaseHttpResponse {
-        $confirm($request->user(), $request->input('code'));
+        $confirm($request->user(), $request->input('code'), $request->input('secret'));
 
-        return $response->setMessage(__('You have successfully enabled two-factor authentication.'));
+        return $response;
     }
 }

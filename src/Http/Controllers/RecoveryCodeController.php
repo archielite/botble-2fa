@@ -1,10 +1,10 @@
 <?php
 
-namespace Botble\TwoFa\Http\Controllers;
+namespace Botble\TwoFactorAuthentication\Http\Controllers;
 
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use Botble\TwoFa\Models\TwoFactorAuthentication;
+use Botble\TwoFactorAuthentication\Models\TwoFactorAuthentication;
 use Illuminate\Http\Request;
 
 class RecoveryCodeController extends BaseController

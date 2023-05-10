@@ -1,12 +1,21 @@
-<div class="tab-pane" id="twofa">
-    @if(! Botble\TwoFa\TwoFa::userHasEnabled(auth()->user()))
-        <button type="button" class="btn btn-info" onclick="vueApp.eventBus.$emit('show-two-factor-setup-modal')">{{ __('Enable Two-factor Authentication?') }}</button>
+@push('header')
+    <script>
+        window.trans = {{ Js::from(['trans' => trans('plugins/2fa::2fa')]) }};
+    </script>
+@endpush
 
-        <two-factor-authentication-setup />
+<div class="tab-pane" id="twofa">
+    @if(! Botble\TwoFactorAuthentication\TwoFactor::userHasEnabled(auth()->user()))
+        <button type="button" class="btn btn-info" onclick="vueApp.eventBus.$emit('show-two-factor-setup-modal')">
+            {{ trans('plugins/2fa::2fa.ask_enable_button') }}
+        </button>
+
+        <two-factor-setup-modal/>
     @else
-        <button type="button" class="btn btn-danger">{{ __('Disable Two-factor Authentication?') }}</button>
-        <two-factor-authentication-remove />
+        <button type="button" class="btn btn-danger" onclick="vueApp.eventBus.$emit('show-two-factor-remove-modal')">
+            {{ trans('plugins/2fa::2fa.ask_disable_button') }}
+        </button>
+
+        <two-factor-remove-modal/>
     @endif
 </div>
-
-

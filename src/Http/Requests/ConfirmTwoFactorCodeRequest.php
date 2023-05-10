@@ -1,6 +1,6 @@
 <?php
 
-namespace Botble\TwoFa\Http\Requests;
+namespace Botble\TwoFactorAuthentication\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

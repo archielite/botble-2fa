@@ -1,14 +1,14 @@
 <?php
 
 use Botble\Base\Facades\BaseHelper;
-use Botble\TwoFa\Http\Controllers\ConfirmedTwoFactorAuthenticationController;
-use Botble\TwoFa\Http\Controllers\RecoveryCodeController;
-use Botble\TwoFa\Http\Controllers\TwoFactorAuthenticatedSessionController;
-use Botble\TwoFa\Http\Controllers\TwoFactorAuthenticationController;
-use Botble\TwoFa\Http\Controllers\TwoFactorQrCodeController;
-use Botble\TwoFa\TwoFa;
+use Botble\TwoFactorAuthentication\Http\Controllers\ConfirmedTwoFactorAuthenticationController;
+use Botble\TwoFactorAuthentication\Http\Controllers\RecoveryCodeController;
+use Botble\TwoFactorAuthentication\Http\Controllers\TwoFactorAuthenticatedSessionController;
+use Botble\TwoFactorAuthentication\Http\Controllers\TwoFactorAuthenticationController;
+use Botble\TwoFactorAuthentication\Http\Controllers\TwoFactorQrCodeController;
+use Botble\TwoFactorAuthentication\TwoFactor;
 
-if (! TwoFa::isSettingEnabled()) {
+if (! TwoFactor::isSettingEnabled()) {
     return;
 }
 

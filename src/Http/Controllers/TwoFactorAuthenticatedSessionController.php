@@ -1,13 +1,13 @@
 <?php
 
-namespace Botble\TwoFa\Http\Controllers;
+namespace Botble\TwoFactorAuthentication\Http\Controllers;
 
 use Botble\ACL\Models\User;
 use Botble\Base\Facades\Assets;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use Botble\TwoFa\Actions\ConfirmTwoFactorAuthentication;
-use Botble\TwoFa\Http\Requests\ConfirmTwoFactorCodeRequest;
+use Botble\TwoFactorAuthentication\Actions\ConfirmTwoFactorAuthentication;
+use Botble\TwoFactorAuthentication\Http\Requests\ConfirmTwoFactorCodeRequest;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -63,6 +63,11 @@ class TwoFactorAuthenticatedSessionController extends BaseController
 
         $user->update(['last_login' => Carbon::now()]);
 
-        return $response->setNextUrl(route('dashboard.index'));
+        session()->forget(['login.id', 'login.remember']);
+
+        return $response
+            ->setData([
+                'next_url' => route('dashboard.index'),
+            ]);
     }
 }

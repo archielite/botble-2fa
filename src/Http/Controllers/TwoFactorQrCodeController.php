@@ -1,12 +1,12 @@
 <?php
 
-namespace Botble\TwoFa\Http\Controllers;
+namespace Botble\TwoFactorAuthentication\Http\Controllers;
 
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use Botble\TwoFa\Actions\CreateTwoFactorRecord;
-use Botble\TwoFa\Actions\GenerateTwoFactorQrCodeSvg;
-use Botble\TwoFa\Actions\GenerateTwoFactorQrCodeUrl;
+use Botble\TwoFactorAuthentication\Actions\CreateTwoFactorRecord;
+use Botble\TwoFactorAuthentication\Actions\GenerateTwoFactorQrCodeSvg;
+use Botble\TwoFactorAuthentication\Actions\GenerateTwoFactorQrCodeUrl;
 use Illuminate\Http\Request;
 
 class TwoFactorQrCodeController extends BaseController

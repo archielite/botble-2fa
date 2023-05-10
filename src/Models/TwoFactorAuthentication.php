@@ -1,6 +1,6 @@
 <?php
 
-namespace Botble\TwoFa\Models;
+namespace Botble\TwoFactorAuthentication\Models;
 
 use Botble\ACL\Models\User;
 use Botble\Base\Models\BaseModel;

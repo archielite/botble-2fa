@@ -1,6 +1,6 @@
 <?php
 
-namespace Botble\TwoFa\Actions;
+namespace Botble\TwoFactorAuthentication\Actions;
 
 use BaconQrCode\Renderer\Color\Rgb;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;

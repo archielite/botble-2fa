@@ -1,10 +1,10 @@
 <x-core-setting::section
-    :title="trans('Two Factor Authentication')"
-    :description="trans('Add an extra layer of security to your account using two factor authentication.')"
+    :title="trans('plugins/2fa::2fa.settings.title')"
+    :description="trans('plugins/2fa::2fa.settings.description')"
 >
     <x-core-setting::on-off
         name="2fa_enabled"
-        :label="trans('Enable Two Factor Authentication')"
-        :value="\Botble\TwoFa\TwoFa::isSettingEnabled()"
+        :label="trans('plugins/2fa::2fa.settings.enable_global')"
+        :value="\Botble\TwoFactorAuthentication\TwoFactor::isSettingEnabled()"
     />
 </x-core-setting::section>
