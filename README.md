@@ -4,6 +4,8 @@ This plugin allows you to add two-factor authentication to your Botble CMS site.
 
 ![](screenshot.png)
 
+Demo video here: [https://youtu.be/Y1t6rjWYNro](https://youtu.be/Y1t6rjWYNro)
+
 ## Requirements
 
 - Botble core 6.6.2 or higher.
