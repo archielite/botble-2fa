@@ -14,7 +14,7 @@ class RedirectIfTwoFactorAuthenticatable
 
     public function handle(Request $request, Closure $next)
     {
-        if (! Auth::once($request->only(['email', 'password']))) {
+        if (! Auth::once($request->only(['username', 'password']))) {
             $this->incrementLoginAttempts($request);
 
             return $this->sendFailedLoginResponse();
