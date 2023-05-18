@@ -2,9 +2,7 @@
 
 This plugin allows you to add two-factor authentication to your Botble CMS site.
 
-![](art/setup-modal.png)
-
-![](art/challenge.png)
+![](screenshot.png)
 
 ## Requirements
 
