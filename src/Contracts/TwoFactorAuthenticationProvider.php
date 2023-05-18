@@ -1,6 +1,6 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication\Contracts;
+namespace ArchiElite\TwoFactorAuthentication\Contracts;
 
 interface TwoFactorAuthenticationProvider
 {

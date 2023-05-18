@@ -1,9 +1,9 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication\Actions;
+namespace ArchiElite\TwoFactorAuthentication\Actions;
 
 use Botble\ACL\Models\User;
-use Botble\TwoFactorAuthentication\TwoFactorAuthenticationProvider;
+use ArchiElite\TwoFactorAuthentication\TwoFactorAuthenticationProvider;
 
 class GenerateTwoFactorQrCodeUrl
 {

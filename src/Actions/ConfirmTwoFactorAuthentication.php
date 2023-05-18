@@ -1,10 +1,10 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication\Actions;
+namespace ArchiElite\TwoFactorAuthentication\Actions;
 
 use Botble\ACL\Models\User;
-use Botble\TwoFactorAuthentication\Models\TwoFactorAuthentication;
-use Botble\TwoFactorAuthentication\TwoFactorAuthenticationProvider;
+use ArchiElite\TwoFactorAuthentication\Models\TwoFactorAuthentication;
+use ArchiElite\TwoFactorAuthentication\TwoFactorAuthenticationProvider;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 

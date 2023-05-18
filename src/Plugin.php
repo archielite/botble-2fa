@@ -1,6 +1,6 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication;
+namespace ArchiElite\TwoFactorAuthentication;
 
 use Botble\PluginManagement\Abstracts\PluginOperationAbstract;
 use Illuminate\Support\Facades\Schema;

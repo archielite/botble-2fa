@@ -1,12 +1,12 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication\Http\Controllers;
+namespace ArchiElite\TwoFactorAuthentication\Http\Controllers;
 
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use Botble\TwoFactorAuthentication\Actions\DisableTwoFactorAuthentication;
-use Botble\TwoFactorAuthentication\Actions\EnableTwoFactorAuthentication;
-use Botble\TwoFactorAuthentication\Http\Requests\ConfirmTwoFactorCodeRequest;
+use ArchiElite\TwoFactorAuthentication\Actions\DisableTwoFactorAuthentication;
+use ArchiElite\TwoFactorAuthentication\Actions\EnableTwoFactorAuthentication;
+use ArchiElite\TwoFactorAuthentication\Http\Requests\ConfirmTwoFactorCodeRequest;
 use Illuminate\Http\Request;
 
 class TwoFactorAuthenticationController extends BaseController

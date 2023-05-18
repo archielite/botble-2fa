@@ -16,7 +16,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Botble\\TwoFactorAuthentication\\": "src"
+            "ArchiElite\\TwoFactorAuthentication\\": "src"
         }
     },
     "require": {

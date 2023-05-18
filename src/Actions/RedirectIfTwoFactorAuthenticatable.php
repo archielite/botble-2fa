@@ -1,9 +1,9 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication\Actions;
+namespace ArchiElite\TwoFactorAuthentication\Actions;
 
 use Botble\ACL\Traits\AuthenticatesUsers;
-use Botble\TwoFactorAuthentication\TwoFactor;
+use ArchiElite\TwoFactorAuthentication\TwoFactor;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
