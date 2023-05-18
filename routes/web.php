@@ -1,12 +1,12 @@
 <?php
 
 use Botble\Base\Facades\BaseHelper;
-use Botble\TwoFactorAuthentication\Http\Controllers\ConfirmedTwoFactorAuthenticationController;
-use Botble\TwoFactorAuthentication\Http\Controllers\RecoveryCodeController;
-use Botble\TwoFactorAuthentication\Http\Controllers\TwoFactorAuthenticatedSessionController;
-use Botble\TwoFactorAuthentication\Http\Controllers\TwoFactorAuthenticationController;
-use Botble\TwoFactorAuthentication\Http\Controllers\TwoFactorQrCodeController;
-use Botble\TwoFactorAuthentication\TwoFactor;
+use ArchiElite\TwoFactorAuthentication\Http\Controllers\ConfirmedTwoFactorAuthenticationController;
+use ArchiElite\TwoFactorAuthentication\Http\Controllers\RecoveryCodeController;
+use ArchiElite\TwoFactorAuthentication\Http\Controllers\TwoFactorAuthenticatedSessionController;
+use ArchiElite\TwoFactorAuthentication\Http\Controllers\TwoFactorAuthenticationController;
+use ArchiElite\TwoFactorAuthentication\Http\Controllers\TwoFactorQrCodeController;
+use ArchiElite\TwoFactorAuthentication\TwoFactor;
 
 if (! TwoFactor::isSettingEnabled()) {
     return;

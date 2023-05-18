@@ -5,7 +5,7 @@
 @endpush
 
 <div class="tab-pane" id="twofa">
-    @if(! Botble\TwoFactorAuthentication\TwoFactor::userHasEnabled(auth()->user()))
+    @if(! ArchiElite\TwoFactorAuthentication\TwoFactor::userHasEnabled(auth()->user()))
         <button type="button" class="btn btn-info" onclick="vueApp.eventBus.$emit('show-two-factor-setup-modal')">
             {{ trans('plugins/2fa::2fa.ask_enable_button') }}
         </button>

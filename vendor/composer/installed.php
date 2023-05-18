@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'archielite/botble-2fa',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => '679f3994bc552b4209ee9cbe10bb062bc7204b1b',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'reference' => '550e4f846d9462d25887c854e5c42f416a639214',
         'type' => 'botble-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'archielite/botble-2fa' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '679f3994bc552b4209ee9cbe10bb062bc7204b1b',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'reference' => '550e4f846d9462d25887c854e5c42f416a639214',
             'type' => 'botble-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

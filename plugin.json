@@ -1,10 +1,10 @@
 {
-    "id": "botble/2fa",
+    "id": "archielite/2fa",
     "name": "Two-factor Authentication",
-    "namespace": "Botble\\TwoFactorAuthentication\\",
-    "provider": "Botble\\TwoFactorAuthentication\\Providers\\TwoFactorAuthenticationServiceProvider",
-    "author": "Botble Technologies",
-    "url": "https://botble.com",
+    "namespace": "ArchiElite\\TwoFactorAuthentication\\",
+    "provider": "ArchiElite\\TwoFactorAuthentication\\Providers\\TwoFactorAuthenticationServiceProvider",
+    "author": "Archi Elite",
+    "url": "https://archielite.com",
     "version": "1.0.0",
     "description": "Two-factor Authentication for Botble CMS",
     "minimum_core_version": "6.6.2"

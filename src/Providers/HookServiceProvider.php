@@ -1,21 +1,14 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication\Providers;
+namespace ArchiElite\TwoFactorAuthentication\Providers;
 
 use Botble\Base\Facades\Assets;
-use Botble\TwoFactorAuthentication\Actions\RedirectIfTwoFactorAuthenticatable;
-use Botble\TwoFactorAuthentication\TwoFactor;
+use ArchiElite\TwoFactorAuthentication\Actions\RedirectIfTwoFactorAuthenticatable;
+use ArchiElite\TwoFactorAuthentication\TwoFactor;
 use Illuminate\Support\ServiceProvider;
 
 class HookServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        if (! class_exists('PragmaRX\Google2FA\Google2FA')) {
-            require __DIR__ . '/../../vendor/autoload.php';
-        }
-    }
-
     public function boot(): void
     {
         add_filter(BASE_FILTER_AFTER_SETTING_CONTENT, function (string $data): string {

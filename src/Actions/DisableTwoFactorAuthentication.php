@@ -1,9 +1,9 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication\Actions;
+namespace ArchiElite\TwoFactorAuthentication\Actions;
 
 use Botble\ACL\Models\User;
-use Botble\TwoFactorAuthentication\Models\TwoFactorAuthentication;
+use ArchiElite\TwoFactorAuthentication\Models\TwoFactorAuthentication;
 
 class DisableTwoFactorAuthentication
 {

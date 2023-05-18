@@ -1,8 +1,8 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication;
+namespace ArchiElite\TwoFactorAuthentication;
 
-use Botble\TwoFactorAuthentication\Contracts\TwoFactorAuthenticationProvider as TwoFactorAuthenticationProviderContract;
+use ArchiElite\TwoFactorAuthentication\Contracts\TwoFactorAuthenticationProvider as TwoFactorAuthenticationProviderContract;
 use Illuminate\Cache\Repository;
 use PragmaRX\Google2FA\Google2FA;
 

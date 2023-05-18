@@ -5,6 +5,6 @@
     <x-core-setting::on-off
         name="2fa_enabled"
         :label="trans('plugins/2fa::2fa.settings.enable_global')"
-        :value="\Botble\TwoFactorAuthentication\TwoFactor::isSettingEnabled()"
+        :value="\ArchiElite\TwoFactorAuthentication\TwoFactor::isSettingEnabled()"
     />
 </x-core-setting::section>

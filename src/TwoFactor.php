@@ -1,8 +1,8 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication;
+namespace ArchiElite\TwoFactorAuthentication;
 
-use Botble\TwoFactorAuthentication\Models\TwoFactorAuthentication;
+use ArchiElite\TwoFactorAuthentication\Models\TwoFactorAuthentication;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class TwoFactor

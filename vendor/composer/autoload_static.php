@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit014aa1a84f027e6833a1a90778c764f1
+class ComposerStaticInit1e7e1227edc215b33bdd69fd34ea64c8
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
@@ -18,8 +18,11 @@ class ComposerStaticInit014aa1a84f027e6833a1a90778c764f1
         ),
         'B' => 
         array (
-            'Botble\\TwoFactorAuthentication\\' => 31,
             'BaconQrCode\\' => 12,
+        ),
+        'A' => 
+        array (
+            'ArchiElite\\TwoFactorAuthentication\\' => 35,
         ),
     );
 
@@ -36,13 +39,13 @@ class ComposerStaticInit014aa1a84f027e6833a1a90778c764f1
         array (
             0 => __DIR__ . '/..' . '/dasprid/enum/src',
         ),
-        'Botble\\TwoFactorAuthentication\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
         'BaconQrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
+        ),
+        'ArchiElite\\TwoFactorAuthentication\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
@@ -53,9 +56,9 @@ class ComposerStaticInit014aa1a84f027e6833a1a90778c764f1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit014aa1a84f027e6833a1a90778c764f1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit014aa1a84f027e6833a1a90778c764f1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit014aa1a84f027e6833a1a90778c764f1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1e7e1227edc215b33bdd69fd34ea64c8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1e7e1227edc215b33bdd69fd34ea64c8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1e7e1227edc215b33bdd69fd34ea64c8::$classMap;
 
         }, null, ClassLoader::class);
     }

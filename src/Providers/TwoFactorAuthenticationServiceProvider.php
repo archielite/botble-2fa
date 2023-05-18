@@ -1,10 +1,10 @@
 <?php
 
-namespace Botble\TwoFactorAuthentication\Providers;
+namespace ArchiElite\TwoFactorAuthentication\Providers;
 
-use Botble\TwoFactorAuthentication\Contracts\TwoFactorAuthenticationProvider as TwoFactorAuthenticationProviderContract;
+use ArchiElite\TwoFactorAuthentication\Contracts\TwoFactorAuthenticationProvider as TwoFactorAuthenticationProviderContract;
 use Botble\Base\Traits\LoadAndPublishDataTrait;
-use Botble\TwoFactorAuthentication\TwoFactorAuthenticationProvider;
+use ArchiElite\TwoFactorAuthentication\TwoFactorAuthenticationProvider;
 use Illuminate\Cache\Repository;
 use Illuminate\Support\ServiceProvider;
 use PragmaRX\Google2FA\Google2FA;
@@ -15,6 +15,10 @@ class TwoFactorAuthenticationServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        if (! class_exists('PragmaRX\Google2FA\Google2FA')) {
+            require __DIR__ . '/../../vendor/autoload.php';
+        }
+
         $this->app->singleton(TwoFactorAuthenticationProviderContract::class, function ($app) {
             return new TwoFactorAuthenticationProvider(
                 $app->make(Google2FA::class),
