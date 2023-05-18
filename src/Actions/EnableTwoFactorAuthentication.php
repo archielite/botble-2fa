@@ -15,9 +15,13 @@ class EnableTwoFactorAuthentication
             'user_id' => $user->id,
         ], [
             'secret' => encrypt($secret),
-            'recovery_codes' => encrypt(json_encode(Collection::times(8, function () {
-                return RecoveryCode::generate();
-            })->all())),
+            'recovery_codes' => encrypt(
+                json_encode(
+                    Collection::times(8, function () {
+                        return RecoveryCode::generate();
+                    })->all()
+                )
+            ),
         ]);
     }
 }

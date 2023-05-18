@@ -12,9 +12,13 @@ class CreateTwoFactorRecord
 {
     public function __invoke(User $user): string
     {
-        $recoveryCodes = encrypt(json_encode(Collection::times(8, function () {
-            return RecoveryCode::generate();
-        })->all()));
+        $recoveryCodes = encrypt(
+            json_encode(
+                Collection::times(8, function () {
+                    return RecoveryCode::generate();
+                })->all()
+            )
+        );
 
         TwoFactorAuthentication::query()->updateOrCreate([
             'user_id' => $user->getKey(),

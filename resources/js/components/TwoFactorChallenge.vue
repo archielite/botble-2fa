@@ -8,13 +8,20 @@ export default {
             loading: false,
         }
     },
+    props: {
+        url: {
+            type: String,
+            default: () => null,
+            required: true,
+        },
+    },
     methods: {
         async submit() {
             this.loading = true
 
             try {
                 const body = this.recovery ? { recovery_code: this.recovery_code } : { code: this.code }
-                const response = await axios.post('/admin/two-factor/challenge', body)
+                const response = await axios.post(this.url, body)
 
                 const { error, message, data } = response.data
 

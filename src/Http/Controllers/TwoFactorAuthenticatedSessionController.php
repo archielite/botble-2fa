@@ -55,7 +55,7 @@ class TwoFactorAuthenticatedSessionController extends BaseController
         BaseHttpResponse $response,
         ConfirmTwoFactorAuthentication $confirm
     ): BaseHttpResponse {
-        $user = User::findOrFail($request->session()->get('login.id'));
+        $user = User::query()->findOrFail($request->session()->get('login.id'));
 
         $confirm($user, $request->input('code') ?? $request->input('recovery_code'));
 

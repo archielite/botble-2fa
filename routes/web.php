@@ -6,11 +6,7 @@ use ArchiElite\TwoFactorAuthentication\Http\Controllers\RecoveryCodeController;
 use ArchiElite\TwoFactorAuthentication\Http\Controllers\TwoFactorAuthenticatedSessionController;
 use ArchiElite\TwoFactorAuthentication\Http\Controllers\TwoFactorAuthenticationController;
 use ArchiElite\TwoFactorAuthentication\Http\Controllers\TwoFactorQrCodeController;
-use ArchiElite\TwoFactorAuthentication\TwoFactor;
-
-if (! TwoFactor::isSettingEnabled()) {
-    return;
-}
+use Illuminate\Support\Facades\Route;
 
 Route::prefix(BaseHelper::getAdminPrefix())->middleware(['web', 'core'])->group(function () {
     Route::prefix('two-factor')->name('two-factor.')->group(function () {

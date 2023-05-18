@@ -6,8 +6,7 @@ const source = 'platform/plugins/' + directory
 const dist = 'public/vendor/core/plugins/' + directory
 
 mix
-    .vue()
-    .js(source + '/resources/js/2fa.js', dist + '/js')
+    .js(source + '/resources/js/2fa.js', dist + '/js').vue()
 
 if (mix.inProduction()) {
     mix.copyDirectory(dist + '/js', source + '/public/js')

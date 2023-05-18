@@ -15,6 +15,10 @@ class HookServiceProvider extends ServiceProvider
             return $data . view('plugins/2fa::settings')->render();
         }, 999);
 
+        if (! TwoFactor::isSettingEnabled()) {
+            return;
+        }
+
         add_filter(ACL_FILTER_PROFILE_FORM_TABS, function (string $data) {
             return $data . view('plugins/2fa::profile.tab')->render();
         });
