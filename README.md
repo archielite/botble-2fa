@@ -10,13 +10,15 @@ This plugin allows you to add two-factor authentication to your Botble CMS site.
 
 ## Installation
 
-You need to use Composer to install this plugin. At the root of your Botble CMS site, run the following command:
+**Install via Admin Panel**
 
-```
-composer require botble/2fa
-```
+Go to the **Admin Panel** and click on the **Plugins** tab. Click on the "Add new" button, find the **Two-Factor Authentication** plugin and click on the "Install" button.
 
-Then go to **Admin** -> **Plugins** -> find **Two-factor Authentication** plugin and click **Activate** button.
+**Install manually**
+
+1. Download the plugin from the [Botble Marketplace](https://marketplace.botble.com/products/archielite/2fa).
+2. Extract the downloaded file and upload the extracted folder to the `platform/plugins` directory.
+3. Go to **Admin** > **Plugins** and click on the **Activate** button.
 
 ## Usage
 
@@ -34,7 +36,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email contact@archielite.com instead of using the issue tracker.
+If you discover any security-related issues, please email contact@archielite.com instead of using the issue tracker.
 
 ## Credits
 
