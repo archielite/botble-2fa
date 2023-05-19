@@ -10,21 +10,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix(BaseHelper::getAdminPrefix())->middleware(['web', 'core'])->group(function () {
     Route::prefix('two-factor')->name('two-factor.')->group(function () {
-        Route::prefix('system/users')->name('system.users.')->middleware('auth')->group(function () {
-            Route::post('authentication', [TwoFactorAuthenticationController::class, 'store'])
-                ->name('enable');
+        Route::group(['permission' => false], function () {
+            Route::prefix('system/users')->name('system.users.')->middleware('auth')->group(function () {
+                Route::post('authentication', [TwoFactorAuthenticationController::class, 'store'])
+                    ->name('enable');
 
-            Route::delete('authentication', [TwoFactorAuthenticationController::class, 'destroy'])
-                ->name('disable');
+                Route::delete('authentication', [TwoFactorAuthenticationController::class, 'destroy'])
+                    ->name('disable');
 
-            Route::get('qr-code', [TwoFactorQrCodeController::class, 'show'])
-                ->name('qr-code');
+                Route::get('qr-code', [TwoFactorQrCodeController::class, 'show'])
+                    ->name('qr-code');
 
-            Route::post('confirmed-two-factor-authentication', [ConfirmedTwoFactorAuthenticationController::class, 'store'])
-                ->name('confirm');
+                Route::post('confirmed-two-factor-authentication', [ConfirmedTwoFactorAuthenticationController::class, 'store'])
+                    ->name('confirm');
 
-            Route::get('two-factor-recovery-codes', [RecoveryCodeController::class, 'index'])
-                ->name('recovery-codes');
+                Route::get('two-factor-recovery-codes', [RecoveryCodeController::class, 'index'])
+                    ->name('recovery-codes');
+            });
         });
 
         Route::middleware('guest')->group(function () {
