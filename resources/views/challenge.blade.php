@@ -7,5 +7,5 @@
 @endpush
 
 @section('content')
-    <two-factor-challenge url="{{ route('two-factor.challenge') }}" />
+    <two-factor-challenge url="{{ route('two-factor.challenge') }}"></two-factor-challenge>
 @endsection

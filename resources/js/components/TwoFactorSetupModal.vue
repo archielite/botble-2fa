@@ -15,7 +15,7 @@ export default {
     mounted() {
         this.modal = new bootstrap.Modal(this.$refs.twoFactorModal)
 
-        window.vueApp.eventBus.$on('show-two-factor-setup-modal', () => {
+        vueApp.eventBus.$on('show-two-factor-setup-modal', () => {
             this.show()
         })
     },
@@ -181,7 +181,7 @@ export default {
                                 <template v-if="!troubleshooting">
                                     {{__('trans.setup.scan_qrcode_tutorial') }}
                                     <div class="my-4 text-center">
-                                        <component class="d-block mb-2" v-html="data.svg" />
+                                        <div class="d-block mb-2" v-html="data.svg"></div>
                                         <button type="button" @click="troubleshooting = true" class="btn btn-link position-static">{{ __('trans.setup.cannot_scan_qrcode') }}</button>
                                     </div>
                                 </template>

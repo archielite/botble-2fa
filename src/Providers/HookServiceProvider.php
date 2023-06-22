@@ -22,7 +22,7 @@ class HookServiceProvider extends ServiceProvider
         }
 
         add_filter(ACL_FILTER_PROFILE_FORM_TABS, function (string $data) {
-            if ($this->shouldShowInProfile()) {
+            if (self::shouldShowInProfile()) {
                 $data .= view('plugins/2fa::profile.tab')->render();
             }
 
@@ -30,11 +30,15 @@ class HookServiceProvider extends ServiceProvider
         });
 
         add_filter(ACL_FILTER_PROFILE_FORM_TAB_CONTENTS, function (string $data) {
-            if ($this->shouldShowInProfile()) {
-                Assets::usingVueJS()
-                    ->addScriptsDirectly('vendor/core/plugins/2fa/js/2fa.js');
+            if (self::shouldShowInProfile()) {
+                $js = version_compare(get_core_version(), '6.7.2', '>') ? '2fa-vue3.js' : '2fa.js';
 
-                $data .= view('plugins/2fa::profile.content')->render();
+                Assets::usingVueJS()
+                    ->addScriptsDirectly('vendor/core/plugins/2fa/js/' . $js);
+                    Assets::usingVueJS()
+                        ->addScriptsDirectly('vendor/core/plugins/2fa/js/2fa.js');
+
+                    $data .= view('plugins/2fa::profile.content')->render();
             }
 
             return $data;
@@ -51,7 +55,7 @@ class HookServiceProvider extends ServiceProvider
         }, 999);
     }
 
-    protected function shouldShowInProfile(): bool
+    protected static function shouldShowInProfile(): bool
     {
         return Request::route('id') == Auth::user()->getKey();
     }
