@@ -5,6 +5,8 @@ namespace ArchiElite\TwoFactorAuthentication\Providers;
 use Botble\Base\Facades\Assets;
 use ArchiElite\TwoFactorAuthentication\Actions\RedirectIfTwoFactorAuthenticatable;
 use ArchiElite\TwoFactorAuthentication\TwoFactor;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 
 class HookServiceProvider extends ServiceProvider
@@ -20,14 +22,22 @@ class HookServiceProvider extends ServiceProvider
         }
 
         add_filter(ACL_FILTER_PROFILE_FORM_TABS, function (string $data) {
-            return $data . view('plugins/2fa::profile.tab')->render();
+            if ($this->shouldShowInProfile()) {
+                $data .= view('plugins/2fa::profile.tab')->render();
+            }
+
+            return $data;
         });
 
         add_filter(ACL_FILTER_PROFILE_FORM_TAB_CONTENTS, function (string $data) {
-            Assets::usingVueJS()
-                ->addScriptsDirectly('vendor/core/plugins/2fa/js/2fa.js');
+            if ($this->shouldShowInProfile()) {
+                Assets::usingVueJS()
+                    ->addScriptsDirectly('vendor/core/plugins/2fa/js/2fa.js');
 
-            return $data . view('plugins/2fa::profile.content')->render();
+                $data .= view('plugins/2fa::profile.content')->render();
+            }
+
+            return $data;
         });
 
         add_filter('core_acl_login_pipeline', function (array $pipeline): array {
@@ -39,5 +49,10 @@ class HookServiceProvider extends ServiceProvider
                 RedirectIfTwoFactorAuthenticatable::class,
             ], $pipeline);
         }, 999);
+    }
+
+    protected function shouldShowInProfile(): bool
+    {
+        return Request::route('id') == Auth::user()->getKey();
     }
 }
