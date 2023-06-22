@@ -15,7 +15,7 @@ export default {
     mounted() {
         this.modal = new bootstrap.Modal(this.$refs.twoFactorModal)
 
-        vueApp.eventBus.$on('show-two-factor-setup-modal', () => {
+        $event.on('show-two-factor-setup-modal', () => {
             this.show()
         })
     },

@@ -1,6 +1,4 @@
 <script>
-const $eventBus = window.$event || window.vueApp.eventBus
-
 export default {
     data() {
         return {
@@ -12,7 +10,7 @@ export default {
     mounted() {
         this.modal = new bootstrap.Modal(this.$refs.twoFactorRemoveModal)
 
-        $eventBus.$on('show-two-factor-remove-modal', () => {
+        $event.on('show-two-factor-remove-modal', () => {
             this.show()
         })
     },

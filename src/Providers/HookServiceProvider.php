@@ -33,12 +33,9 @@ class HookServiceProvider extends ServiceProvider
             if (self::shouldShowInProfile()) {
                 $js = version_compare(get_core_version(), '6.7.2', '>') ? '2fa-vue3.js' : '2fa.js';
 
-                Assets::usingVueJS()
-                    ->addScriptsDirectly('vendor/core/plugins/2fa/js/' . $js);
-                    Assets::usingVueJS()
-                        ->addScriptsDirectly('vendor/core/plugins/2fa/js/2fa.js');
+                Assets::usingVueJS()->addScriptsDirectly('vendor/core/plugins/2fa/js/' . $js);
 
-                    $data .= view('plugins/2fa::profile.content')->render();
+                $data .= view('plugins/2fa::profile.content')->render();
             }
 
             return $data;
