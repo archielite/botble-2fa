@@ -5,7 +5,7 @@
     "provider": "ArchiElite\\TwoFactorAuthentication\\Providers\\TwoFactorAuthenticationServiceProvider",
     "author": "Archi Elite",
     "url": "https://archielite.com",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Two-factor Authentication for Botble CMS",
     "minimum_core_version": "6.6.2"
 }
