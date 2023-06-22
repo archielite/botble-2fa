@@ -9,5 +9,5 @@ mix
     .js(source + '/resources/js/2fa.js', dist + '/js/2fa-vue3.js').vue()
 
 if (mix.inProduction()) {
-    mix.copyDirectory(dist + '/js', source + '/public/js')
+    mix.copy(dist + '/js/2fa-vue3.js', source + '/public/js')
 }
