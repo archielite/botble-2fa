@@ -2,12 +2,12 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Http\Controllers;
 
+use ArchiElite\TwoFactorAuthentication\Actions\ConfirmTwoFactorAuthentication;
+use ArchiElite\TwoFactorAuthentication\Http\Requests\ConfirmTwoFactorCodeRequest;
 use Botble\ACL\Models\User;
 use Botble\Base\Facades\Assets;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use ArchiElite\TwoFactorAuthentication\Actions\ConfirmTwoFactorAuthentication;
-use ArchiElite\TwoFactorAuthentication\Http\Requests\ConfirmTwoFactorCodeRequest;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -32,7 +32,7 @@ class TwoFactorAuthenticatedSessionController extends BaseController
         Assets::usingVueJS()
             ->addStylesDirectly('vendor/core/core/acl/css/animate.min.css')
             ->addStylesDirectly('vendor/core/core/acl/css/login.css')
-            ->addScriptsDirectly('vendor/core/plugins/2fa/js/2fa.js')
+            ->addScriptsDirectly('vendor/core/plugins/2fa/js/2fa-vue3.js')
             ->removeStyles([
                 'select2',
                 'fancybox',

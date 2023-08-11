@@ -2,11 +2,11 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Http\Controllers;
 
-use Botble\Base\Http\Controllers\BaseController;
-use Botble\Base\Http\Responses\BaseHttpResponse;
 use ArchiElite\TwoFactorAuthentication\Actions\DisableTwoFactorAuthentication;
 use ArchiElite\TwoFactorAuthentication\Actions\EnableTwoFactorAuthentication;
 use ArchiElite\TwoFactorAuthentication\Http\Requests\ConfirmTwoFactorCodeRequest;
+use Botble\Base\Http\Controllers\BaseController;
+use Botble\Base\Http\Responses\BaseHttpResponse;
 use Illuminate\Http\Request;
 
 class TwoFactorAuthenticationController extends BaseController

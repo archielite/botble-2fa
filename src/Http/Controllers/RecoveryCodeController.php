@@ -2,9 +2,9 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Http\Controllers;
 
+use ArchiElite\TwoFactorAuthentication\Models\TwoFactorAuthentication;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use ArchiElite\TwoFactorAuthentication\Models\TwoFactorAuthentication;
 use Illuminate\Http\Request;
 
 class RecoveryCodeController extends BaseController

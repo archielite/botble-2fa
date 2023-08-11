@@ -3,8 +3,8 @@
 namespace ArchiElite\TwoFactorAuthentication\Providers;
 
 use ArchiElite\TwoFactorAuthentication\Contracts\TwoFactorAuthenticationProvider as TwoFactorAuthenticationProviderContract;
-use Botble\Base\Traits\LoadAndPublishDataTrait;
 use ArchiElite\TwoFactorAuthentication\TwoFactorAuthenticationProvider;
+use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Illuminate\Cache\Repository;
 use Illuminate\Support\ServiceProvider;
 use PragmaRX\Google2FA\Google2FA;
