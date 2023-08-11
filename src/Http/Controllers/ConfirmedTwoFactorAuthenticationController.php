@@ -2,10 +2,10 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Http\Controllers;
 
-use Botble\Base\Http\Controllers\BaseController;
-use Botble\Base\Http\Responses\BaseHttpResponse;
 use ArchiElite\TwoFactorAuthentication\Actions\ConfirmTwoFactorAuthentication;
 use ArchiElite\TwoFactorAuthentication\Http\Requests\ConfirmTwoFactorCodeRequest;
+use Botble\Base\Http\Controllers\BaseController;
+use Botble\Base\Http\Responses\BaseHttpResponse;
 
 class ConfirmedTwoFactorAuthenticationController extends BaseController
 {

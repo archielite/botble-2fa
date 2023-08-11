@@ -2,11 +2,11 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Http\Controllers;
 
-use Botble\Base\Http\Controllers\BaseController;
-use Botble\Base\Http\Responses\BaseHttpResponse;
 use ArchiElite\TwoFactorAuthentication\Actions\CreateTwoFactorRecord;
 use ArchiElite\TwoFactorAuthentication\Actions\GenerateTwoFactorQrCodeSvg;
 use ArchiElite\TwoFactorAuthentication\Actions\GenerateTwoFactorQrCodeUrl;
+use Botble\Base\Http\Controllers\BaseController;
+use Botble\Base\Http\Responses\BaseHttpResponse;
 use Illuminate\Http\Request;
 
 class TwoFactorQrCodeController extends BaseController

@@ -2,8 +2,8 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Actions;
 
-use Botble\ACL\Models\User;
 use ArchiElite\TwoFactorAuthentication\TwoFactorAuthenticationProvider;
+use Botble\ACL\Models\User;
 
 class GenerateTwoFactorQrCodeUrl
 {

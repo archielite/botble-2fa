@@ -2,9 +2,9 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Providers;
 
-use Botble\Base\Facades\Assets;
 use ArchiElite\TwoFactorAuthentication\Actions\RedirectIfTwoFactorAuthenticatable;
 use ArchiElite\TwoFactorAuthentication\TwoFactor;
+use Botble\Base\Facades\Assets;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;

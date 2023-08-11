@@ -2,9 +2,9 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Actions;
 
-use Botble\ACL\Models\User;
 use ArchiElite\TwoFactorAuthentication\Models\TwoFactorAuthentication;
 use ArchiElite\TwoFactorAuthentication\RecoveryCode;
+use Botble\ACL\Models\User;
 use Illuminate\Support\Collection;
 
 class EnableTwoFactorAuthentication

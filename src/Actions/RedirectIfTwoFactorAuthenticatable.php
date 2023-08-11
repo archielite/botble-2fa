@@ -2,11 +2,10 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Actions;
 
-use Botble\ACL\Traits\AuthenticatesUsers;
 use ArchiElite\TwoFactorAuthentication\TwoFactor;
+use Botble\ACL\Traits\AuthenticatesUsers;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RedirectIfTwoFactorAuthenticatable
 {
@@ -14,13 +13,13 @@ class RedirectIfTwoFactorAuthenticatable
 
     public function handle(Request $request, Closure $next)
     {
-        if (! Auth::once($request->only(['username', 'password']))) {
+        if (! $this->guard()->once($this->credentials($request))) {
             $this->incrementLoginAttempts($request);
 
             return $this->sendFailedLoginResponse();
         }
 
-        $user = Auth::user();
+        $user = $this->guard()->user();
 
         if (TwoFactor::userHasEnabled($user)) {
             session()->put('login.id', $user->getKey());
