@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        Schema::dropIfExists('two_factor_authentications');
+
         Schema::create('two_factor_authentications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
