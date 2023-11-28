@@ -12,6 +12,7 @@ export default {
             recoveryCodes: [],
         }
     },
+
     mounted() {
         this.modal = new bootstrap.Modal(this.$refs.twoFactorModal)
 
@@ -19,13 +20,15 @@ export default {
             this.show()
         })
     },
+
     watch: {
         step(value) {
             if (value === 2) {
                 this.getQrCode()
             }
-        }
+        },
     },
+
     methods: {
         show() {
             this.reset()
@@ -50,7 +53,7 @@ export default {
             try {
                 const response = await axios.get(route('two-factor.system.users.qr-code'))
 
-                const {error, message, data} = response.data
+                const { error, message, data } = response.data
 
                 if (error) {
                     Botble.showError(message)
@@ -70,7 +73,7 @@ export default {
             try {
                 const response = await axios.post(route('two-factor.system.users.confirm'), {
                     code: this.code,
-                    secret: this.secret
+                    secret: this.secret,
                 })
 
                 const { error, message } = response.data
@@ -131,8 +134,9 @@ export default {
             } catch (error) {
                 Botble.showError(error.response.data.error)
             }
-        }
+        },
     },
+
     computed: {
         isWelcome() {
             return this.step === 1
@@ -148,8 +152,8 @@ export default {
 </script>
 
 <template>
-    <div class="modal fade" ref="twoFactorModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal modal-blur fade" ref="twoFactorModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
@@ -163,37 +167,49 @@ export default {
                 <div class="modal-body">
                     <template v-if="!loading">
                         <div v-if="isWelcome">
-                            <img src="/vendor/core/plugins/2fa/images/shield.png" class="w-100" alt="shield">
-                            <ol class="mt-4 ms-0 ps-0 list-group-flush list-group-numbered">
-                                <li class="list-group-item">
+                            <img src="/vendor/core/plugins/2fa/images/shield.png" class="w-100" alt="shield" />
+                            <ol class="mt-4 ms-0">
+                                <li>
                                     <strong>{{ __('trans.setup.welcome_tutorial_step_1') }}</strong>
                                     <p>{{ __('trans.setup.welcome_tutorial_step_1_description') }}</p>
                                 </li>
-                                <li class="list-group-item">
+                                <li>
                                     <strong>{{ __('trans.setup.welcome_tutorial_step_2') }}</strong>
                                     <p>{{ __('trans.setup.welcome_tutorial_step_2_description') }}</p>
                                 </li>
                             </ol>
                         </div>
 
-                        <ol v-else-if="isQrCode" class="mt-4 ms-0 ps-0 list-group-flush list-group-numbered">
-                            <li class="list-group-item">
+                        <ol v-else-if="isQrCode" class="mt-4 ms-0">
+                            <li>
                                 <template v-if="!troubleshooting">
-                                    {{__('trans.setup.scan_qrcode_tutorial') }}
+                                    {{ __('trans.setup.scan_qrcode_tutorial') }}
                                     <div class="my-4 text-center">
                                         <div class="d-block mb-2" v-html="data.svg"></div>
-                                        <button type="button" @click="troubleshooting = true" class="btn btn-link position-static">{{ __('trans.setup.cannot_scan_qrcode') }}</button>
+                                        <button
+                                            type="button"
+                                            @click="troubleshooting = true"
+                                            class="btn btn-link position-static"
+                                        >
+                                            {{ __('trans.setup.cannot_scan_qrcode') }}
+                                        </button>
                                     </div>
                                 </template>
                                 <template v-else>
                                     <p>{{ __('trans.setup.enter_code_manually_tutorial') }}</p>
                                     <div class="text-center">
                                         <pre v-text="data.secret" />
-                                        <button type="button" @click="troubleshooting = false" class="btn btn-link position-static">{{ __('trans.setup.try_scan_qrcode_again') }}</button>
+                                        <button
+                                            type="button"
+                                            @click="troubleshooting = false"
+                                            class="btn btn-link position-static"
+                                        >
+                                            {{ __('trans.setup.try_scan_qrcode_again') }}
+                                        </button>
                                     </div>
                                 </template>
                             </li>
-                            <li class="list-group-item">
+                            <li>
                                 {{ __('trans.setup.enter_code_tutorial') }}
 
                                 <div class="form-group mt-3">
@@ -211,32 +227,40 @@ export default {
                         </ol>
 
                         <div v-else-if="isDone">
-                            <p class="text-center my-4">
-                                <i class="fas fa-check fs-1 text-success"></i>
-                            </p>
+                            <div class="text-center my-4">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="icon text-success icon-lg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="2"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M5 12l5 5l10 -10" />
+                                </svg>
+                            </div>
                             <p>
                                 {{ __('trans.setup.done_message') }}
                             </p>
 
                             <div>
-                                <p class="mb-0">
+                                <p>
                                     {{ __('trans.setup.backup_codes_tutorial') }}
                                 </p>
-                                <div class="mt-2">
-                                    <div v-for="(code, index) in recoveryCodes" :key="index" class="d-inline-block me-2">
-                                        <div class="bg-light px-2 py-1">
-                                            <code v-text="code" />
-                                        </div>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <div v-for="(code, index) in recoveryCodes" :key="index">
+                                        <code v-text="code" class="px-2 py-1" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </template>
-                    <template v-else>
-                        <div class="text-center py-4">
-                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-                        </div>
-                    </template>
+                    <div class="loading-spinner" v-else></div>
                 </div>
                 <div class="modal-footer">
                     <div class="d-grid gap-2 w-100">

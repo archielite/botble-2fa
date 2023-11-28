@@ -4,10 +4,11 @@ export default {
         return {
             recovery: null,
             recovery_code: '',
-            code: '',
             loading: false,
+            code: null,
         }
     },
+
     props: {
         url: {
             type: String,
@@ -15,6 +16,7 @@ export default {
             required: true,
         },
     },
+
     methods: {
         async submit() {
             this.loading = true
@@ -43,43 +45,145 @@ export default {
             this.recovery_code = null
         },
     },
+
+    mounted() {
+        document.querySelectorAll('[data-code-input]').forEach((input, index) => {
+            input.addEventListener('input', (event) => {
+                if (event.target.value.length === event.target.maxLength && index < 5) {
+                    document.querySelectorAll('[data-code-input]')[index + 1].focus()
+                }
+            })
+
+            input.addEventListener('keydown', (event) => {
+                if (event.target.value.length === 0 && event.key === 'Backspace' && index === 0) {
+                    document.querySelectorAll('[data-code-input]')[index].focus()
+                }
+
+                if (event.target.value.length === 0 && event.key === 'Backspace' && index > 0) {
+                    document.querySelectorAll('[data-code-input]')[index - 1].focus()
+                }
+
+                if (event.key === 'ArrowLeft' && index > 0) {
+                    document.querySelectorAll('[data-code-input]')[index - 1].focus()
+                }
+
+                if (event.key === 'ArrowRight' && index < 5) {
+                    document.querySelectorAll('[data-code-input]')[index + 1].focus()
+                }
+            })
+        })
+
+        document.querySelector('[data-code-input]').focus()
+    },
 }
 </script>
 
 <template>
     <div>
-        <p v-if="!recovery">
-            {{ __('trans.challenge_code_tutorial') }}
-        </p>
+        <div class="card-body">
+            <h2 class="card-title card-title-lg text-center mb-4">Authenticate Your Account</h2>
+            <p
+                class="my-4 text-center"
+                v-text="recovery ? __('trans.challenge_recovery_code_tutorial') : __('trans.challenge_code_tutorial')"
+            />
 
-        <p v-if="recovery">
-            {{ __('trans.challenge_recovery_code_tutorial') }}
-        </p>
+            <form @submit.prevent="submit">
+                <div class="my-5">
+                    <div class="row g-4" v-if="!recovery">
+                        <div class="col">
+                            <div class="row g-2">
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control form-control-lg text-center py-3"
+                                        maxlength="1"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
+                                        data-code-input
+                                    />
+                                </div>
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control form-control-lg text-center py-3"
+                                        maxlength="1"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
+                                        data-code-input
+                                    />
+                                </div>
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control form-control-lg text-center py-3"
+                                        maxlength="1"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
+                                        data-code-input
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row g-2">
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control form-control-lg text-center py-3"
+                                        maxlength="1"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
+                                        data-code-input
+                                    />
+                                </div>
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control form-control-lg text-center py-3"
+                                        maxlength="1"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
+                                        data-code-input
+                                    />
+                                </div>
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        class="form-control form-control-lg text-center py-3"
+                                        maxlength="1"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
+                                        data-code-input
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <form @submit.prevent="submit" class="login-form">
-            <div class="form-group" v-if="!recovery">
-                <label for="code" class="form-label">{{ __('trans.code') }}</label>
-                <input type="text" id="code" class="form-control" inputmode="numeric" v-model="code" autofocus autocomplete="one-time-code">
-            </div>
-
-            <div class="form-group" v-else>
-                <label for="recovery_code" class="form-label">{{ __('trans.recovery_code') }}</label>
-                <input type="text" id="recovery_code" class="form-control" v-model="recovery_code" autofocus autocomplete="one-time-code">
-            </div>
-
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-block login-button">
-                    <span class="signin">{{ __('trans.login') }}</span>
-                </button>
-
-                <button
-                    type="button"
-                    class="btn btn-block login-button bg-secondary"
-                    @click="toggleRecovery"
-                >
-                    <span class="signin" v-text="recovery ? __('trans.use_recovery_code') : __('trans.use_code')" />
-                </button>
-            </div>
-        </form>
+                    <div v-else>
+                        <label for="recovery_code" class="form-label">{{ __('trans.recovery_code') }}</label>
+                        <input
+                            type="text"
+                            id="recovery_code"
+                            class="form-control form-control-lg"
+                            v-model="recovery_code"
+                            autofocus
+                            autocomplete="one-time-code"
+                        />
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="btn-list flex-nowrap">
+                        <button
+                            type="button"
+                            class="btn w-100"
+                            v-text="recovery ? __('trans.use_recovery_code') : __('trans.use_code')"
+                            @click="toggleRecovery"
+                        />
+                        <button type="submit" class="btn btn-primary w-100">{{ __('trans.login') }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
