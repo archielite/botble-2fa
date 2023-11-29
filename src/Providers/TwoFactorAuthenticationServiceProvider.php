@@ -18,7 +18,7 @@ class TwoFactorAuthenticationServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        if (!class_exists('PragmaRX\Google2FA\Google2FA')) {
+        if (! class_exists('PragmaRX\Google2FA\Google2FA')) {
             require __DIR__ . '/../../vendor/autoload.php';
         }
 
