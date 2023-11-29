@@ -8,7 +8,7 @@ Demo video here: [https://youtu.be/Y1t6rjWYNro](https://youtu.be/Y1t6rjWYNro)
 
 ## Requirements
 
--   Botble core 6.6.2 or higher.
+-   Botble core 7.0.0 or higher.
 
 ## Installation
 
