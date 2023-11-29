@@ -23,7 +23,7 @@ return [
     'confirm_disable_description' => 'This feature protects your account with an extra layer of security.',
     'enter_code_to_disable' => 'Confirm your two-factor authentication code to turn it off.',
     'settings' => [
-        'title' => 'Two-factor Authentication Settings',
+        'title' => 'Two-factor Authentication',
         'description' => 'Configure your two-factor authentication settings.',
         'enable_global' => 'Enable Two-factor Authentication',
     ],

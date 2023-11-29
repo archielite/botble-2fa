@@ -6,6 +6,7 @@ use ArchiElite\TwoFactorAuthentication\Actions\RedirectIfTwoFactorAuthenticatabl
 use ArchiElite\TwoFactorAuthentication\TwoFactor;
 use Botble\Base\Facades\Assets;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,17 +14,15 @@ class HookServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        add_filter(BASE_FILTER_AFTER_SETTING_CONTENT, function (string $data): string {
-            return $data . view('plugins/2fa::settings')->render();
-        }, 999);
-
-        if (! TwoFactor::isSettingEnabled()) {
+        if (!TwoFactor::isSettingEnabled()) {
             return;
         }
 
         add_filter(ACL_FILTER_PROFILE_FORM_TABS, function (string $data) {
             if (self::shouldShowInProfile()) {
-                $data .= view('plugins/2fa::profile.tab')->render();
+                $data .= Blade::render(
+                    sprintf('<x-core::tab.item id="twofa" label="%s"  icon="ti ti-lock" />', trans('plugins/2fa::2fa.name'))
+                );
             }
 
             return $data;
@@ -42,7 +41,7 @@ class HookServiceProvider extends ServiceProvider
         });
 
         add_filter('core_acl_login_pipeline', function (array $pipeline): array {
-            if (! TwoFactor::isSettingEnabled()) {
+            if (!TwoFactor::isSettingEnabled()) {
                 return $pipeline;
             }
 
@@ -54,6 +53,6 @@ class HookServiceProvider extends ServiceProvider
 
     protected static function shouldShowInProfile(): bool
     {
-        return Request::route('id') == Auth::user()->getKey();
+        return Request::route('user')->is(Auth::user());
     }
 }
