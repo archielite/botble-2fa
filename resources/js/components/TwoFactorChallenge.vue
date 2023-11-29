@@ -52,6 +52,13 @@ export default {
                 if (event.target.value.length === event.target.maxLength && index < 5) {
                     document.querySelectorAll('[data-code-input]')[index + 1].focus()
                 }
+
+                if (event.target.value.length === event.target.maxLength && index === 5) {
+                    this.code = Array.from(document.querySelectorAll('[data-code-input]')).reduce(
+                        (acc, input) => acc + input.value,
+                        ''
+                    )
+                }
             })
 
             input.addEventListener('keydown', (event) => {
