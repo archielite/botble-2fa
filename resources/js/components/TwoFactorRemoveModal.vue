@@ -1,5 +1,12 @@
 <script>
 export default {
+    props: {
+        disableUrl: {
+            type: String,
+            required: true,
+        },
+    },
+
     data() {
         return {
             loading: false,
@@ -7,6 +14,7 @@ export default {
             code: '',
         }
     },
+
     mounted() {
         this.modal = new bootstrap.Modal(this.$refs.twoFactorRemoveModal)
 
@@ -14,17 +22,16 @@ export default {
             this.show()
         })
     },
+
     methods: {
         async remove() {
             this.loading = true
 
             try {
-                const response = await axios.post(
-                    route('two-factor.system.users.disable', {
-                        _method: 'DELETE',
-                        code: this.code,
-                    })
-                )
+                const response = await axios.post(this.disableUrl, {
+                    _method: 'DELETE',
+                    code: this.code,
+                })
 
                 const { error, message } = response.data
 

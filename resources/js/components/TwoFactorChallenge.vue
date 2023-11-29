@@ -1,5 +1,13 @@
 <script>
 export default {
+    props: {
+        url: {
+            type: String,
+            default: () => null,
+            required: true,
+        },
+    },
+
     data() {
         return {
             recovery: null,
@@ -7,14 +15,6 @@ export default {
             loading: false,
             code: null,
         }
-    },
-
-    props: {
-        url: {
-            type: String,
-            default: () => null,
-            required: true,
-        },
     },
 
     methods: {

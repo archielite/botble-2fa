@@ -1,5 +1,24 @@
 <script>
 export default {
+    props: {
+        qrCodeUrl: {
+            type: String,
+            default: null,
+        },
+        confirmUrl: {
+            type: String,
+            default: null,
+        },
+        recoveryCodesUrl: {
+            type: String,
+            default: null,
+        },
+        enableUrl: {
+            type: String,
+            default: null,
+        },
+    },
+
     data() {
         return {
             modal: null,
@@ -51,7 +70,7 @@ export default {
             this.loading = true
 
             try {
-                const response = await axios.get(route('two-factor.system.users.qr-code'))
+                const response = await axios.get(this.qrCodeUrl)
 
                 const { error, message, data } = response.data
 
@@ -71,7 +90,7 @@ export default {
             this.loading = true
 
             try {
-                const response = await axios.post(route('two-factor.system.users.confirm'), {
+                const response = await axios.post(this.confirmUrl, {
                     code: this.code,
                     secret: this.secret,
                 })
@@ -96,7 +115,7 @@ export default {
             this.loading = true
 
             try {
-                const response = await axios.get(route('two-factor.system.users.recovery-codes'))
+                const response = await axios.get(this.recoveryCodesUrl)
 
                 const { error, message, data } = response.data
 
@@ -115,7 +134,7 @@ export default {
             try {
                 const response = await axios({
                     method: 'post',
-                    url: route('two-factor.system.users.enable'),
+                    url: this.enableUrl,
                     data: {
                         secret,
                     },
