@@ -70,7 +70,7 @@ export default {
             this.loading = true
 
             try {
-                const response = await axios.get(this.qrCodeUrl)
+                const response = await $httpClient.make().get(this.qrCodeUrl)
 
                 const { error, message, data } = response.data
 
@@ -90,7 +90,7 @@ export default {
             this.loading = true
 
             try {
-                const response = await axios.post(this.confirmUrl, {
+                const response = await $httpClient.make().post(this.confirmUrl, {
                     code: this.code,
                     secret: this.secret,
                 })
@@ -115,7 +115,7 @@ export default {
             this.loading = true
 
             try {
-                const response = await axios.get(this.recoveryCodesUrl)
+                const response = await $httpClient.make().get(this.recoveryCodesUrl)
 
                 const { error, message, data } = response.data
 
@@ -176,7 +176,6 @@ export default {
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <i class="til_img"></i>
                         <strong v-if="isWelcome">{{ __('trans.setup.welcome_title') }}</strong>
                         <strong v-if="isQrCode">{{ __('trans.setup.qrcode_title') }}</strong>
                         <strong v-if="isDone">{{ __('trans.setup.done_title') }}</strong>
@@ -184,102 +183,101 @@ export default {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 <div class="modal-body">
-                    <template v-if="!loading">
-                        <div v-if="isWelcome">
-                            <img src="/vendor/core/plugins/2fa/images/shield.png" class="w-100" alt="shield" />
-                            <ol class="mt-4 ms-0">
-                                <li>
-                                    <strong>{{ __('trans.setup.welcome_tutorial_step_1') }}</strong>
-                                    <p>{{ __('trans.setup.welcome_tutorial_step_1_description') }}</p>
-                                </li>
-                                <li>
-                                    <strong>{{ __('trans.setup.welcome_tutorial_step_2') }}</strong>
-                                    <p>{{ __('trans.setup.welcome_tutorial_step_2_description') }}</p>
-                                </li>
-                            </ol>
-                        </div>
-
-                        <ol v-else-if="isQrCode" class="mt-4 ms-0">
+                    <div v-if="isWelcome">
+                        <img src="/vendor/core/plugins/2fa/images/shield.png" class="w-100" alt="shield" />
+                        <ol class="mt-4 ms-0">
                             <li>
-                                <template v-if="!troubleshooting">
-                                    {{ __('trans.setup.scan_qrcode_tutorial') }}
-                                    <div class="my-4 text-center">
-                                        <div class="d-block mb-2" v-html="data.svg"></div>
-                                        <button
-                                            type="button"
-                                            @click="troubleshooting = true"
-                                            class="btn btn-link position-static"
-                                        >
-                                            {{ __('trans.setup.cannot_scan_qrcode') }}
-                                        </button>
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    <p>{{ __('trans.setup.enter_code_manually_tutorial') }}</p>
-                                    <div class="text-center">
-                                        <pre v-text="data.secret" />
-                                        <button
-                                            type="button"
-                                            @click="troubleshooting = false"
-                                            class="btn btn-link position-static"
-                                        >
-                                            {{ __('trans.setup.try_scan_qrcode_again') }}
-                                        </button>
-                                    </div>
-                                </template>
+                                <strong>{{ __('trans.setup.welcome_tutorial_step_1') }}</strong>
+                                <p>{{ __('trans.setup.welcome_tutorial_step_1_description') }}</p>
                             </li>
                             <li>
-                                {{ __('trans.setup.enter_code_tutorial') }}
-
-                                <div class="form-group mt-3">
-                                    <input
-                                        type="text"
-                                        inputmode="numeric"
-                                        pattern="[0-9]*"
-                                        autocomplete="one-time-code"
-                                        v-model="code"
-                                        class="form-control form-control-lg"
-                                        placeholder="XXXXXX"
-                                    />
-                                </div>
+                                <strong>{{ __('trans.setup.welcome_tutorial_step_2') }}</strong>
+                                <p>{{ __('trans.setup.welcome_tutorial_step_2_description') }}</p>
                             </li>
                         </ol>
+                    </div>
 
-                        <div v-else-if="isDone">
-                            <div class="text-center my-4">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="icon text-success icon-lg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="2"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M5 12l5 5l10 -10" />
-                                </svg>
+                    <ol v-else-if="isQrCode && data" class="mt-4 ms-0">
+                        <li>
+                            <template v-if="!troubleshooting">
+                                {{ __('trans.setup.scan_qrcode_tutorial') }}
+                                <div class="my-4 text-center">
+                                    <div class="d-block mb-2" v-html="data.svg"></div>
+                                    <button
+                                        type="button"
+                                        @click="troubleshooting = true"
+                                        class="btn btn-link position-static"
+                                    >
+                                        {{ __('trans.setup.cannot_scan_qrcode') }}
+                                    </button>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <p>{{ __('trans.setup.enter_code_manually_tutorial') }}</p>
+                                <div class="text-center">
+                                    <pre v-text="data.secret" />
+                                    <button
+                                        type="button"
+                                        @click="troubleshooting = false"
+                                        class="btn btn-link position-static"
+                                    >
+                                        {{ __('trans.setup.try_scan_qrcode_again') }}
+                                    </button>
+                                </div>
+                            </template>
+                        </li>
+                        <li>
+                            {{ __('trans.setup.enter_code_tutorial') }}
+
+                            <div class="form-group mt-3">
+                                <input
+                                    type="text"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
+                                    autocomplete="one-time-code"
+                                    v-model="code"
+                                    class="form-control form-control-lg"
+                                    placeholder="XXXXXX"
+                                />
                             </div>
-                            <p>
-                                {{ __('trans.setup.done_message') }}
-                            </p>
+                        </li>
+                    </ol>
 
-                            <div>
-                                <p>
-                                    {{ __('trans.setup.backup_codes_tutorial') }}
-                                </p>
-                                <div class="d-flex flex-wrap gap-2">
-                                    <div v-for="(code, index) in recoveryCodes" :key="index">
-                                        <code v-text="code" class="px-2 py-1" />
-                                    </div>
+                    <div v-else-if="isDone">
+                        <div class="text-center my-4">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="icon text-success icon-lg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                stroke-width="2"
+                                stroke="currentColor"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M5 12l5 5l10 -10" />
+                            </svg>
+                        </div>
+                        <p>
+                            {{ __('trans.setup.done_message') }}
+                        </p>
+
+                        <div>
+                            <p>
+                                {{ __('trans.setup.backup_codes_tutorial') }}
+                            </p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <div v-for="(code, index) in recoveryCodes" :key="index">
+                                    <code v-text="code" class="px-2 py-1" />
                                 </div>
                             </div>
                         </div>
-                    </template>
-                    <div class="loading-spinner" v-else></div>
+                    </div>
+
+                    <div class="loading-spinner" v-if="loading"></div>
                 </div>
                 <div class="modal-footer">
                     <div class="d-grid gap-2 w-100">

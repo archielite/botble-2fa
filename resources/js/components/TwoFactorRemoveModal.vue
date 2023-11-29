@@ -28,8 +28,7 @@ export default {
             this.loading = true
 
             try {
-                const response = await axios.post(this.disableUrl, {
-                    _method: 'DELETE',
+                const response = await $httpClient.make().delete(this.disableUrl, {
                     code: this.code,
                 })
 

@@ -21,23 +21,17 @@ export default {
         async submit() {
             this.loading = true
 
-            try {
-                const body = this.recovery ? { recovery_code: this.recovery_code } : { code: this.code }
-                const response = await axios.post(this.url, body)
+            const body = this.recovery ? { recovery_code: this.recovery_code } : { code: this.code }
+            $httpClient
+                .make()
+                .post(this.url, body)
+                .then(({ data }) => {
+                    if (!data.error) {
+                        window.location.href = data.data.next_url
+                    }
 
-                const { error, message, data } = response.data
-
-                if (!error) {
-                    window.location.href = data.next_url
-                } else {
-                    Botble.showError(message)
-                }
-            } catch (data) {
-                const { error, message } = data.response.data
-                Botble.showError(error || message)
-            }
-
-            this.loading = false
+                    this.loading = false
+                })
         },
         toggleRecovery() {
             this.recovery = !this.recovery
