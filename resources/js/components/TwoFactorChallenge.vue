@@ -178,7 +178,7 @@ export default {
                         <button
                             type="button"
                             class="btn w-100"
-                            v-text="recovery ? __('trans.use_recovery_code') : __('trans.use_code')"
+                            v-text="recovery ? __('trans.use_code') : __('trans.use_recovery_code')"
                             @click="toggleRecovery"
                         />
                         <button type="submit" class="btn btn-primary w-100">{{ __('trans.login') }}</button>
