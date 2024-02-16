@@ -31,13 +31,13 @@ AdminHelper::registerRoutes(function () {
                 Route::get('two-factor-recovery-codes', [RecoveryCodeController::class, 'index'])
                     ->name('recovery-codes');
             });
+        });
 
-            Route::group(['permission' => 'two-factor-authentication.settings'], function () {
-                Route::get('settings', [TwoFactorAuthenticationSettingController::class, 'edit'])->name('settings');
-                Route::put('settings', [TwoFactorAuthenticationSettingController::class, 'update'])->name(
-                    'settings.update'
-                );
-            });
+        Route::group(['permission' => 'two-factor-authentication.settings'], function () {
+            Route::get('settings', [TwoFactorAuthenticationSettingController::class, 'edit'])->name('settings');
+            Route::put('settings', [TwoFactorAuthenticationSettingController::class, 'update'])->name(
+                'settings.update'
+            );
         });
 
         Route::group(['middleware' => 'guest'], function () {
