@@ -13,7 +13,7 @@ class ConfirmTwoFactorAuthentication
     public function __invoke(User $user, string $code, string $secret = null): void
     {
         $twoFactor = TwoFactorAuthentication::query()
-            ->where('user_id', $user->id)
+            ->where('user_id', $user->getKey())
             ->first();
 
         $secret = $secret ?? decrypt($twoFactor->secret);
