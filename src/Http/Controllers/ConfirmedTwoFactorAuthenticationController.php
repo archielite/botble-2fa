@@ -12,10 +12,9 @@ class ConfirmedTwoFactorAuthenticationController extends BaseController
     public function store(
         ConfirmTwoFactorCodeRequest $request,
         ConfirmTwoFactorAuthentication $confirm,
-        BaseHttpResponse $response
     ): BaseHttpResponse {
         $confirm($request->user(), $request->input('code'), $request->input('secret'));
 
-        return $response;
+        return $this->httpResponse();
     }
 }

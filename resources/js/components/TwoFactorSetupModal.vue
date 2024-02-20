@@ -66,93 +66,71 @@ export default {
             this.recoveryCodes = []
             this.code = null
         },
-        async getQrCode() {
+        getQrCode() {
             this.loading = true
 
-            try {
-                const response = await $httpClient.make().get(this.qrCodeUrl)
-
-                const { error, message, data } = response.data
-
-                if (error) {
-                    Botble.showError(message)
-                } else {
-                    this.data = data
-                    this.secret = data.secret
-                }
-            } catch (error) {
-                Botble.showError(error.response.data.error)
-            }
-
-            this.loading = false
+            $httpClient
+                .make()
+                .get(this.qrCodeUrl)
+                .then(({ error, message, data }) => {
+                    if (error) {
+                        Botble.showError(message)
+                    } else {
+                        this.data = data.data
+                        this.secret = data.data.secret
+                    }
+                })
+                .finally(() => (this.loading = false))
         },
-        async confirm() {
+        confirm() {
             this.loading = true
 
-            try {
-                const response = await $httpClient.make().post(this.confirmUrl, {
+            $httpClient
+                .make()
+                .post(this.confirmUrl, {
                     code: this.code,
                     secret: this.secret,
                 })
+                .then(({ error, message }) => {
+                    if (error) {
+                        Botble.showError(message)
+                    } else {
+                        this.enableTwoFactor(this.secret)
 
-                const { error, message } = response.data
-
-                if (error) {
-                    Botble.showError(message)
-                } else {
-                    await this.enableTwoFactor(this.secret)
-
-                    this.step++
-                }
-            } catch (data) {
-                const { error, message } = data.response.data
-                Botble.showError(error || message)
-            }
-
-            this.loading = false
+                        this.step++
+                    }
+                })
+                .finally(() => (this.loading = false))
         },
-        async getRecoveryCodes() {
+        getRecoveryCodes() {
             this.loading = true
 
-            try {
-                const response = await $httpClient.make().get(this.recoveryCodesUrl)
-
-                const { error, message, data } = response.data
-
-                if (error) {
-                    Botble.showError(message)
-                } else {
-                    this.recoveryCodes = data.recovery_codes
-                }
-            } catch (error) {
-                Botble.showError(error.response.data.error)
-            }
-
-            this.loading = false
-        },
-        async enableTwoFactor(secret) {
-            try {
-                const response = await axios({
-                    method: 'post',
-                    url: this.enableUrl,
-                    data: {
-                        secret,
-                    },
+            $httpClient
+                .make()
+                .get(this.recoveryCodesUrl)
+                .then(({ error, message, data }) => {
+                    if (error) {
+                        Botble.showError(message)
+                    } else {
+                        this.recoveryCodes = data.data.recovery_codes
+                    }
                 })
-
-                const { error, message } = response.data
-
-                if (error) {
-                    Botble.showError(message)
-                    return
-                }
-
-                await this.getRecoveryCodes()
-
-                Botble.showSuccess(message)
-            } catch (error) {
-                Botble.showError(error.response.data.error)
-            }
+                .finally(() => (this.loading = false))
+        },
+        enableTwoFactor(secret) {
+            $httpClient
+                .make()
+                .post(this.enableUrl, {
+                    secret,
+                })
+                .then(({ error, message }) => {
+                    if (error) {
+                        Botble.showError(message)
+                    } else {
+                        this.getRecoveryCodes()
+                    }
+                })
+                .finally(() => (this.loading = false))
         },
     },
 

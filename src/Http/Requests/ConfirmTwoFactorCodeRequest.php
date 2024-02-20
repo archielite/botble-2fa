@@ -2,9 +2,9 @@
 
 namespace ArchiElite\TwoFactorAuthentication\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Botble\Support\Http\Requests\Request;
 
-class ConfirmTwoFactorCodeRequest extends FormRequest
+class ConfirmTwoFactorCodeRequest extends Request
 {
     public function rules(): array
     {

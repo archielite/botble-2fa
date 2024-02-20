@@ -19,7 +19,7 @@ class TwoFactorAuthenticatedSessionController extends BaseController
     public function __construct()
     {
         $this->middleware(function (Request $request, Closure $closure) {
-            if (! session()->has(['login.id'])) {
+            if (!session()->has(['login.id'])) {
                 return redirect()->route('access.login');
             }
 
@@ -30,21 +30,20 @@ class TwoFactorAuthenticatedSessionController extends BaseController
     public function create(): View
     {
         Assets::usingVueJS()
-            ->addStylesDirectly('vendor/core/core/acl/css/animate.min.css')
-            ->addStylesDirectly('vendor/core/core/acl/css/login.css')
             ->addScriptsDirectly('vendor/core/plugins/2fa/js/2fa-vue3.js')
-            ->removeStyles([
-                'select2',
-                'fancybox',
-                'spectrum',
-                'simple-line-icons',
-                'custom-scrollbar',
-                'datepicker',
-            ])
+            ->removeStyles(['fancybox', 'select2', 'toastr', 'datepicker', 'spectrum', 'language'])
             ->removeScripts([
-                'select2',
                 'fancybox',
+                'select2',
+                'toastr',
+                'datepicker',
+                'spectrum',
+                'jquery-waypoints',
+                'stickytableheaders',
+                'custom-scrollbar',
+                'modernizr',
                 'cookie',
+                'fslightbox',
             ]);
 
         return view('plugins/2fa::challenge');
@@ -52,12 +51,11 @@ class TwoFactorAuthenticatedSessionController extends BaseController
 
     public function store(
         ConfirmTwoFactorCodeRequest $request,
-        BaseHttpResponse $response,
         ConfirmTwoFactorAuthentication $confirm
     ): BaseHttpResponse {
         $user = User::query()->findOrFail($request->session()->get('login.id'));
 
-        $confirm($user, $request->input('code') ?? $request->input('recovery_code'));
+        $confirm($user, $request->input('code') ?: $request->input('recovery_code'));
 
         Auth::login($user, $request->session()->get('login.remember', false));
 
@@ -65,7 +63,8 @@ class TwoFactorAuthenticatedSessionController extends BaseController
 
         session()->forget(['login.id', 'login.remember']);
 
-        return $response
+        return $this
+            ->httpResponse()
             ->setData([
                 'next_url' => route('dashboard.index'),
             ]);

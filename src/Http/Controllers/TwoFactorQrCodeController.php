@@ -8,12 +8,12 @@ use ArchiElite\TwoFactorAuthentication\Actions\GenerateTwoFactorQrCodeUrl;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class TwoFactorQrCodeController extends BaseController
 {
     public function show(
         Request $request,
-        BaseHttpResponse $response,
         CreateTwoFactorRecord $createTwoFactorRecord,
         GenerateTwoFactorQrCodeUrl $generateTwoFactorQrCodeUrl,
         GenerateTwoFactorQrCodeSvg $generateTwoFactorQrCodeSvg
@@ -21,16 +21,18 @@ class TwoFactorQrCodeController extends BaseController
         $secret = $createTwoFactorRecord($request->user());
 
         if (empty($secret)) {
-            return $response;
+            return $this->httpResponse();
         }
 
         $qrCodeUrl = $generateTwoFactorQrCodeUrl($request->user(), $secret);
         $qrCodeSvg = $generateTwoFactorQrCodeSvg($qrCodeUrl);
 
-        return $response->setData([
-            'svg' => $qrCodeSvg,
-            'url' => $qrCodeUrl,
-            'secret' => decrypt($secret),
-        ]);
+        return $this
+            ->httpResponse()
+            ->setData([
+                'svg' => $qrCodeSvg,
+                'url' => $qrCodeUrl,
+                'secret' => Crypt::decrypt($secret),
+            ]);
     }
 }
