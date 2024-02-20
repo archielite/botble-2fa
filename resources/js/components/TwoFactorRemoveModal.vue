@@ -24,30 +24,21 @@ export default {
     },
 
     methods: {
-        async remove() {
+        remove() {
             this.loading = true
 
-            try {
-                const response = await $httpClient.make().delete(this.disableUrl, {
-                    code: this.code,
-                })
-
-                const { error, message } = response.data
-
+            $httpClient.make().delete(this.disableUrl, {
+                code: this.code,
+            })
+            .then(({error, message}) => {
                 if (error) {
                     Botble.showError(message)
                 } else {
-                    Botble.showSuccess(message)
                     this.hide()
-
                     setTimeout(() => location.reload(), 1000)
                 }
-            } catch (data) {
-                const { error, message } = data.response.data
-                Botble.showError(error || message)
-            }
-
-            this.loading = false
+            })
+            .finally(() => this.loading = false)
         },
         show() {
             this.modal.show()

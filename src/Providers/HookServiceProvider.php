@@ -14,7 +14,7 @@ class HookServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        if (!TwoFactor::isSettingEnabled()) {
+        if (! TwoFactor::isSettingEnabled()) {
             return;
         }
 
@@ -41,7 +41,7 @@ class HookServiceProvider extends ServiceProvider
         });
 
         add_filter('core_acl_login_pipeline', function (array $pipeline): array {
-            if (!TwoFactor::isSettingEnabled()) {
+            if (! TwoFactor::isSettingEnabled()) {
                 return $pipeline;
             }
 
