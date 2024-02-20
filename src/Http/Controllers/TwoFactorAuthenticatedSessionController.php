@@ -19,7 +19,7 @@ class TwoFactorAuthenticatedSessionController extends BaseController
     public function __construct()
     {
         $this->middleware(function (Request $request, Closure $closure) {
-            if (! session()->has(['login.id'])) {
+            if (!session()->has(['login.id'])) {
                 return redirect()->route('access.login');
             }
 
@@ -31,8 +31,20 @@ class TwoFactorAuthenticatedSessionController extends BaseController
     {
         Assets::usingVueJS()
             ->addScriptsDirectly('vendor/core/plugins/2fa/js/2fa-vue3.js')
-            ->removeStyles(['fancybox'])
-            ->removeScripts(['fancybox']);
+            ->removeStyles(['fancybox', 'select2', 'toastr', 'datepicker', 'spectrum', 'language'])
+            ->removeScripts([
+                'fancybox',
+                'select2',
+                'toastr',
+                'datepicker',
+                'spectrum',
+                'jquery-waypoints',
+                'stickytableheaders',
+                'custom-scrollbar',
+                'modernizr',
+                'cookie',
+                'fslightbox',
+            ]);
 
         return view('plugins/2fa::challenge');
     }
