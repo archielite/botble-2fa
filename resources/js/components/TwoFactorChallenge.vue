@@ -39,38 +39,98 @@ export default {
             this.code = null
             this.recovery_code = null
         },
+        handleAutofill(event) {
+            const value = event.target.value.replace(/\D/g, '').slice(0, 6)
+            if (value.length > 0) {
+                const codeInputs = document.querySelectorAll('[data-code-input]')
+                value.split('').forEach((digit, i) => {
+                    if (codeInputs[i]) {
+                        codeInputs[i].value = digit
+                    }
+                })
+                this.code = value
+                // Focus the last input
+                if (codeInputs[5]) {
+                    codeInputs[5].focus()
+                }
+            }
+        },
     },
 
     mounted() {
-        document.querySelectorAll('[data-code-input]').forEach((input, index) => {
+        const codeInputs = document.querySelectorAll('[data-code-input]')
+        const hiddenInput = document.querySelector('input[name="one-time-code"]')
+        
+        // Monitor the hidden input for autofill
+        if (hiddenInput) {
+            // Check for autofill on page load
+            setTimeout(() => {
+                if (hiddenInput.value) {
+                    this.handleAutofill({ target: hiddenInput })
+                }
+            }, 100)
+            
+            // Monitor for changes
+            const observer = new MutationObserver(() => {
+                if (hiddenInput.value) {
+                    this.handleAutofill({ target: hiddenInput })
+                }
+            })
+            
+            observer.observe(hiddenInput, { attributes: true, attributeFilter: ['value'] })
+        }
+        
+        codeInputs.forEach((input, index) => {
+            // Handle paste event
+            input.addEventListener('paste', (event) => {
+                event.preventDefault()
+                const pastedText = (event.clipboardData || window.clipboardData).getData('text')
+                const digits = pastedText.replace(/\D/g, '').slice(0, 6)
+                
+                if (digits.length > 0) {
+                    // Fill all inputs with pasted digits
+                    digits.split('').forEach((digit, i) => {
+                        if (codeInputs[i]) {
+                            codeInputs[i].value = digit
+                        }
+                    })
+                    
+                    // Focus the last filled input or the last input if all are filled
+                    const lastFilledIndex = Math.min(digits.length - 1, 5)
+                    codeInputs[lastFilledIndex].focus()
+                    
+                    // Update the code value
+                    this.code = Array.from(codeInputs).reduce((acc, input) => acc + input.value, '')
+                }
+            })
+            
             input.addEventListener('input', (event) => {
+                // Remove non-numeric characters
+                event.target.value = event.target.value.replace(/\D/g, '')
+                
                 if (event.target.value.length === event.target.maxLength && index < 5) {
-                    document.querySelectorAll('[data-code-input]')[index + 1].focus()
+                    codeInputs[index + 1].focus()
                 }
 
-                if (event.target.value.length === event.target.maxLength && index === 5) {
-                    this.code = Array.from(document.querySelectorAll('[data-code-input]')).reduce(
-                        (acc, input) => acc + input.value,
-                        ''
-                    )
-                }
+                // Always update the code value
+                this.code = Array.from(codeInputs).reduce((acc, input) => acc + input.value, '')
             })
 
             input.addEventListener('keydown', (event) => {
                 if (event.target.value.length === 0 && event.key === 'Backspace' && index === 0) {
-                    document.querySelectorAll('[data-code-input]')[index].focus()
+                    codeInputs[index].focus()
                 }
 
                 if (event.target.value.length === 0 && event.key === 'Backspace' && index > 0) {
-                    document.querySelectorAll('[data-code-input]')[index - 1].focus()
+                    codeInputs[index - 1].focus()
                 }
 
                 if (event.key === 'ArrowLeft' && index > 0) {
-                    document.querySelectorAll('[data-code-input]')[index - 1].focus()
+                    codeInputs[index - 1].focus()
                 }
 
                 if (event.key === 'ArrowRight' && index < 5) {
-                    document.querySelectorAll('[data-code-input]')[index + 1].focus()
+                    codeInputs[index + 1].focus()
                 }
             })
         })
@@ -92,6 +152,16 @@ export default {
             <form @submit.prevent="submit">
                 <div class="my-5">
                     <div class="row g-4" v-if="!recovery">
+                        <!-- Hidden input for 1Password autofill -->
+                        <input
+                            type="text"
+                            name="one-time-code"
+                            autocomplete="one-time-code"
+                            style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+                            maxlength="6"
+                            @input="handleAutofill"
+                        />
+                        
                         <div class="col">
                             <div class="row g-2">
                                 <div class="col">
@@ -102,6 +172,7 @@ export default {
                                         inputmode="numeric"
                                         pattern="[0-9]*"
                                         data-code-input
+                                        autocomplete="off"
                                         :disabled="loading"
                                     />
                                 </div>
@@ -113,6 +184,7 @@ export default {
                                         inputmode="numeric"
                                         pattern="[0-9]*"
                                         data-code-input
+                                        autocomplete="off"
                                         :disabled="loading"
                                     />
                                 </div>
@@ -124,6 +196,7 @@ export default {
                                         inputmode="numeric"
                                         pattern="[0-9]*"
                                         data-code-input
+                                        autocomplete="off"
                                         :disabled="loading"
                                     />
                                 </div>
@@ -139,6 +212,7 @@ export default {
                                         inputmode="numeric"
                                         pattern="[0-9]*"
                                         data-code-input
+                                        autocomplete="off"
                                         :disabled="loading"
                                     />
                                 </div>
@@ -150,6 +224,7 @@ export default {
                                         inputmode="numeric"
                                         pattern="[0-9]*"
                                         data-code-input
+                                        autocomplete="off"
                                         :disabled="loading"
                                     />
                                 </div>
@@ -161,6 +236,7 @@ export default {
                                         inputmode="numeric"
                                         pattern="[0-9]*"
                                         data-code-input
+                                        autocomplete="off"
                                         :disabled="loading"
                                     />
                                 </div>

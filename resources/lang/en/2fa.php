@@ -26,6 +26,7 @@ return [
         'title' => 'Two-factor Authentication',
         'description' => 'Configure your two-factor authentication settings.',
         'enable_global' => 'Enable Two-factor Authentication',
+        'instruction' => 'To enable 2FA for your account, go to your user profile and click on the "Two factor authentication" tab.',
     ],
     'setup' => [
         'welcome_title' => 'Protect your account in just two steps!',
@@ -35,7 +36,8 @@ return [
         'welcome_tutorial_step_1_description' => 'Use a compatible authentication app (like Google Authenticator, Authy, Duo Mobile, 1Password, etc.) We’ll generate a QR code for you to scan.',
         'welcome_tutorial_step_2' => 'Enter the confirmation code',
         'welcome_tutorial_step_2_description' => 'Two-factor authentication will then be turned on for authentication app, which you can turn off at any time.',
-        'scan_qrcode_tutorial' => 'Use your authentication app to scan this QR code. If you don’t have an authentication app on your device, you’ll need to install one now.',
+        'scan_qrcode_tutorial' => 'Use your authentication app to scan this QR code. If you don\'t have an authentication app on your device, you\'ll need to install one now.',
+        'scan_qrcode_1password' => 'For 1Password users: Open 1Password, tap the "+" button, select "One-Time Password", then scan this QR code.',
         'enter_code_manually_tutorial' => 'If you can’t scan the QR code with your camera, enter the following code into the authentication app to link it to your account.',
         'cannot_scan_qrcode' => 'Can’t scan the QR code?',
         'try_scan_qrcode_again' => 'Try to scan the QR code again',

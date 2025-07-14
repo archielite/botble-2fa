@@ -5,6 +5,8 @@ namespace ArchiElite\TwoFactorAuthentication\Forms\Settings;
 use ArchiElite\TwoFactorAuthentication\Http\Requests\Settings\TwoFactorAuthenticationSettingRequest;
 use ArchiElite\TwoFactorAuthentication\TwoFactor;
 use Botble\Base\Forms\FieldOptions\CheckboxFieldOption;
+use Botble\Base\Forms\FieldOptions\HtmlFieldOption;
+use Botble\Base\Forms\Fields\HtmlField;
 use Botble\Base\Forms\Fields\OnOffCheckboxField;
 use Botble\Setting\Forms\SettingForm;
 
@@ -18,6 +20,13 @@ class TwoFactorAuthenticationSettingForm extends SettingForm
             ->setSectionTitle(trans('plugins/2fa::2fa.settings.title'))
             ->setSectionDescription(trans('plugins/2fa::2fa.settings.description'))
             ->setValidatorClass(TwoFactorAuthenticationSettingRequest::class)
+            ->add(
+                '2fa_instruction',
+                HtmlField::class,
+                HtmlFieldOption::make()
+                    ->content('<div class="alert alert-info">' . trans('plugins/2fa::2fa.settings.instruction') . '</div>')
+                    ->toArray()
+            )
             ->add(
                 '2fa_enabled',
                 OnOffCheckboxField::class,

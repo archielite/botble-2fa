@@ -1,36 +1,58 @@
 # Two-factor Authentication for Botble CMS
 
-This plugin allows you to add two-factor authentication to your Botble CMS site.
+Add an extra layer of security to your account with two-factor authentication (2FA).
 
 ![](screenshot.png)
 
-Demo video here: [https://youtu.be/Y1t6rjWYNro](https://youtu.be/Y1t6rjWYNro)
+## What is 2FA?
 
-## Requirements
+Two-factor authentication requires two things to log in:
+1. Your password (something you know)
+2. A 6-digit code from your phone (something you have)
 
--   Botble core 7.0.0 or higher.
+This makes your account much more secure.
 
-## Installation
+## Getting Started
 
-**Install via Admin Panel**
+### Step 1: Enable 2FA for your site
+Go to **Settings** → find **Two-factor Authentication** → turn it on
 
-Go to the **Admin Panel** and click on the **Plugins** tab. Click on the "Add new" button, find the **Two-Factor Authentication** plugin and click on the "Install" button.
+![Enable 2FA in Settings](art/setup-01.png)
 
-**Install manually**
+### Step 2: Set up 2FA for your account
+1. Go to **My Profile** → click **Two-factor Authentication** tab
 
-1. Download the plugin from the [Botble Marketplace](https://marketplace.botble.com/products/archielite/2fa).
-2. Extract the downloaded file and upload the extracted folder to the `platform/plugins` directory.
-3. Go to **Admin** > **Plugins** and click on the **Activate** button.
+![Profile 2FA Tab](art/setup-02.png)
 
-## Usage
+2. Click **Enable Two-factor Authentication**
+3. Install an authenticator app on your phone:
+   - Google Authenticator
+   - Microsoft Authenticator
+   - 1Password
+   - Authy
+4. Scan the QR code with your app
 
-First, you need to go to Admin -> Settings -> scroll down to **Two-factor Authentication** section and enable it.
+![Scan QR Code](art/setup-03.png)
 
-![](art/setting.png)
+5. Enter the 6-digit code from your app
+6. Save your backup codes in a safe place
 
-To set up two-factor authentication for your account, go to **Admin** -> **My Profile** -> **Two-factor Authentication** tab.
+![Save Backup Codes](art/setup-04.png)
 
-![](art/setup-modal.png)
+## How to Log In
+
+After entering your password, you'll see a screen asking for a 6-digit code:
+- Open your authenticator app
+- Enter the code shown in the app
+- For 1Password users: The code will fill automatically
+
+![Login with 2FA](art/challenge-01.png)
+
+## Tips
+
+- **Lost your phone?** Use one of your backup codes to log in
+- **Can't scan the QR code?** Click "Can't scan?" and enter the code manually
+- **Save your backup codes** somewhere safe - you'll need them if you lose your phone
 
 ## Contributing
 
