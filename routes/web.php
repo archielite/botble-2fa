@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 AdminHelper::registerRoutes(function () {
     Route::prefix('two-factor')->name('two-factor.')->group(function () {
         Route::prefix('system/users')->name('system.users.')->middleware('auth')->group(function () {
-            Route::group(['permission' => 'false'], function () {
+            Route::group(['permission' => false], function () {
                 Route::post('authentication', [TwoFactorAuthenticationController::class, 'store'])
                     ->name('enable');
 
