@@ -3,11 +3,11 @@
 namespace ArchiElite\TwoFactorAuthentication\Actions;
 
 use ArchiElite\TwoFactorAuthentication\TwoFactorAuthenticationProvider;
-use Botble\ACL\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class GenerateTwoFactorQrCodeUrl
 {
-    public function __invoke(User $user, string $secret): string
+    public function __invoke(Authenticatable $user, string $secret): string
     {
         return app(TwoFactorAuthenticationProvider::class)->qrCodeUrl(
             config('app.name'),

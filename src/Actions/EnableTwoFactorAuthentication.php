@@ -4,16 +4,17 @@ namespace ArchiElite\TwoFactorAuthentication\Actions;
 
 use ArchiElite\TwoFactorAuthentication\Models\TwoFactorAuthentication;
 use ArchiElite\TwoFactorAuthentication\RecoveryCode;
-use Botble\ACL\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Crypt;
 
 class EnableTwoFactorAuthentication
 {
-    public function __invoke(User $user, string $secret): void
+    public function __invoke(Authenticatable $user, string $secret): void
     {
         TwoFactorAuthentication::query()->updateOrCreate([
-            'user_id' => $user->getKey(),
+            'authenticatable_id' => $user->getKey(),
+            'authenticatable_type' => get_class($user),
         ], [
             'secret' => Crypt::encrypt($secret),
             'recovery_codes' => Crypt::encrypt(

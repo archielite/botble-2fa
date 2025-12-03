@@ -40,11 +40,11 @@ class TwoFactorAuthenticationServiceProvider extends ServiceProvider
             ->publishAssets()
             ->loadRoutes();
 
-        $this->app->booted(function () {
+        $this->app->booted(function (): void {
             $this->app->register(HookServiceProvider::class);
         });
 
-        PanelSectionManager::default()->beforeRendering(function () {
+        PanelSectionManager::default()->beforeRendering(function (): void {
             PanelSectionManager::registerItem(
                 SettingOthersPanelSection::class,
                 fn () => PanelSectionItem::make('two-factor-authentication')

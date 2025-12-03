@@ -15,7 +15,8 @@ class TwoFactor
     public static function userHasEnabled(Authenticatable $user): bool
     {
         return TwoFactorAuthentication::query()
-            ->where('user_id', $user->getAuthIdentifier())
+            ->where('authenticatable_id', $user->getAuthIdentifier())
+            ->where('authenticatable_type', get_class($user))
             ->whereNotNull('confirmed_at')
             ->exists();
     }

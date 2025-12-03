@@ -3,9 +3,8 @@
 namespace ArchiElite\TwoFactorAuthentication\Models;
 
 use ArchiElite\TwoFactorAuthentication\RecoveryCode;
-use Botble\ACL\Models\User;
 use Botble\Base\Models\BaseModel;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Crypt;
 
 class TwoFactorAuthentication extends BaseModel
@@ -13,7 +12,8 @@ class TwoFactorAuthentication extends BaseModel
     protected $table = 'two_factor_authentications';
 
     protected $fillable = [
-        'user_id',
+        'authenticatable_id',
+        'authenticatable_type',
         'secret',
         'recovery_codes',
         'confirmed_at',
@@ -23,9 +23,14 @@ class TwoFactorAuthentication extends BaseModel
         'confirmed_at' => 'datetime',
     ];
 
-    public function user(): BelongsTo
+    public function authenticatable(): MorphTo
     {
-        return $this->belongsTo(User::class);
+        return $this->morphTo();
+    }
+
+    public function user(): MorphTo
+    {
+        return $this->authenticatable();
     }
 
     public function recoveryCodes(): array

@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::dropIfExists('two_factor_authentications');
 
-        Schema::create('two_factor_authentications', function (Blueprint $table) {
+        Schema::create('two_factor_authentications', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('user_id');
             $table->text('secret')->nullable();

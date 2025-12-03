@@ -5,20 +5,21 @@ namespace ArchiElite\TwoFactorAuthentication\Actions;
 use ArchiElite\TwoFactorAuthentication\Contracts\TwoFactorAuthenticationProvider;
 use ArchiElite\TwoFactorAuthentication\Models\TwoFactorAuthentication;
 use ArchiElite\TwoFactorAuthentication\RecoveryCode;
-use Botble\ACL\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Crypt;
 
 class CreateTwoFactorRecord
 {
-    public function __invoke(User $user): string
+    public function __invoke(Authenticatable $user): string
     {
         $recoveryCodes = Crypt::encrypt(
             json_encode(Collection::times(8, fn () => RecoveryCode::generate())->all())
         );
 
         TwoFactorAuthentication::query()->updateOrCreate([
-            'user_id' => $user->getKey(),
+            'authenticatable_id' => $user->getKey(),
+            'authenticatable_type' => get_class($user),
         ], [
             'recovery_codes' => $recoveryCodes,
         ]);

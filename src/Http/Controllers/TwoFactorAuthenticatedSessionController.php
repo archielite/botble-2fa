@@ -19,7 +19,7 @@ class TwoFactorAuthenticatedSessionController extends BaseController
     public function __construct()
     {
         $this->middleware(function (Request $request, Closure $closure) {
-            if (!session()->has(['login.id'])) {
+            if (! session()->has(['login.id'])) {
                 return redirect()->route('access.login');
             }
 

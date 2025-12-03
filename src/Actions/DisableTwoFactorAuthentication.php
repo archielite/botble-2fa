@@ -3,7 +3,7 @@
 namespace ArchiElite\TwoFactorAuthentication\Actions;
 
 use ArchiElite\TwoFactorAuthentication\Models\TwoFactorAuthentication;
-use Botble\ACL\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Crypt;
 
 class DisableTwoFactorAuthentication
@@ -12,10 +12,11 @@ class DisableTwoFactorAuthentication
     {
     }
 
-    public function __invoke(User $user, string $code): void
+    public function __invoke(Authenticatable $user, string $code): void
     {
         $twoFactor = TwoFactorAuthentication::query()
-            ->where('user_id', $user->getKey())
+            ->where('authenticatable_id', $user->getKey())
+            ->where('authenticatable_type', get_class($user))
             ->first();
 
         if (
