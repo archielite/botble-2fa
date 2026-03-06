@@ -40,7 +40,7 @@ AdminHelper::registerRoutes(function (): void {
             });
         });
 
-        Route::group(['permission' => 'two-factor-authentication.settings'], function (): void {
+        Route::group(['middleware' => 'auth', 'permission' => 'two-factor-authentication.settings'], function (): void {
             Route::get('settings', [TwoFactorAuthenticationSettingController::class, 'edit'])->name('settings');
             Route::put('settings', [TwoFactorAuthenticationSettingController::class, 'update'])->name(
                 'settings.update'
