@@ -65,7 +65,7 @@ class ConfirmTwoFactorAuthentication
         $twoFactor->forceFill($updateData)->save();
     }
 
-    protected function hasValidCode(?string $code = null, string $secret): bool
+    protected function hasValidCode(?string $code, string $secret): bool
     {
         return $code && tap(app(TwoFactorAuthenticationProvider::class)->verify($secret, $code), function ($result): void {
             if ($result) {
